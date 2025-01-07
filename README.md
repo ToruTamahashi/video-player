@@ -96,6 +96,21 @@ Hello, world.
 Welcome!
 ```
 
+### Parsing WebVTT Files
+
+You can use the built-in VTT parser to parse subtitle or chapter files:
+
+```typescript
+import { parseVTT, parseChapters } from 'react-custom-video-player';
+
+// Parse subtitles
+const subtitles = parseVTT(vttContent);
+
+// Parse chapters
+const chapters = parseChapters(vttContent);
+
+```
+
 ## Customizing Icons
 
 You can replace the default icons with your own:

@@ -9,3 +9,4 @@ export type {
 	VideoPlayerState,
 	VideoPlayerControls,
 } from './components/VideoPlayer/types';
+export { parseChapters, parseVTT } from './utils/vttParser';
