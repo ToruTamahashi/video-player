@@ -19,7 +19,8 @@
 				"types": "./dist/index.d.ts",
 				"default": "./dist/index.cjs"
 			}
-		}
+		},
+		"./styles.css": "./dist/styles.css"
 	},
 	"scripts": {
 		"dev": "vite",

@@ -1,4 +1,4 @@
-// import './index.css';  
+import './index.css';  
 export { VideoPlayer } from './components/VideoPlayer/VideoPlayer';
 export { Controls } from './components/VideoPlayer/Controls';
 export { Subtitles } from './components/VideoPlayer/Subtitles';
