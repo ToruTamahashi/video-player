@@ -70,5 +70,13 @@
 		"tailwindcss"
 	],
 	"author": "Toru Tamahashi",
-	"license": "MIT"
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ToruTamahashi/video-player.git"
+	},
+	"bugs": {
+		"url": "https://github.com/ToruTamahashi/video-player/issues"
+	},
+	"homepage": "https://github.com/ToruTamahashi/video-player#readme"
 }
