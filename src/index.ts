@@ -10,3 +10,4 @@ export type {
 	VideoPlayerControls,
 } from './components/VideoPlayer/types';
 export { parseChapters, parseVTT } from './utils/vttParser';
+import './index.css'; 
