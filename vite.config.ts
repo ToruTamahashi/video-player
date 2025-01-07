@@ -34,6 +34,6 @@ export default defineConfig({
 			},
 		},
 		// CSSの出力設定を明示的に指定
-		cssCodeSplit: true,
+		cssCodeSplit: false,
 	},
 });
