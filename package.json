@@ -1,7 +1,7 @@
 {
 	"name": "@torutamahashi/video-player",
 	"private": false,
-	"version": "0.1.15",
+	"version": "0.1.16",
 	"type": "module",
 	"files": [
 		"dist"
@@ -20,7 +20,7 @@
 				"default": "./dist/index.cjs"
 			}
 		},
-		"./index.css": "./dist/index.css"  
+		"./index.css": "./dist/index.css"
 	},
 	"scripts": {
 		"dev": "vite",
