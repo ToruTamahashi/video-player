@@ -29,8 +29,6 @@ export default defineConfig({
 					react: 'React',
 					'react-dom': 'ReactDOM',
 				},
-				// CSSをchunkとして分離
-				preserveModules: true,
 			},
 		},
 	},

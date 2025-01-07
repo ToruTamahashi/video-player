@@ -3,7 +3,6 @@
 	"private": false,
 	"version": "0.1.5",
 	"type": "module",
-	"style": "dist/index.css",
 	"files": [
 		"dist"
 	],
@@ -20,8 +19,7 @@
 				"types": "./dist/index.d.ts",
 				"default": "./dist/index.cjs"
 			}
-		},
-		"./dist/index.css": "./dist/index.css"
+		}
 	},
 	"scripts": {
 		"dev": "vite",
