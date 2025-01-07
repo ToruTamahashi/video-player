@@ -30,8 +30,10 @@ export default defineConfig({
 					'react-dom': 'ReactDOM',
 				},
 				// CSSをchunkとして分離
-				preserveModules: true,
+				// preserveModules: true,
 			},
 		},
+		// CSSの出力設定を明示的に指定
+		cssCodeSplit: true,
 	},
 });
