@@ -1,4 +1,4 @@
-# React Custom Video Player
+# @torutamahashi/video-player
 
 A highly customizable React video player component with chapter markers, subtitles, and thumbnail preview functionality.
 
@@ -16,15 +16,39 @@ A highly customizable React video player component with chapter markers, subtitl
 ## Installation
 
 ```bash
-npm install react-custom-video-player
+npm install @torutamahashi/video-player
 # or
-yarn add react-custom-video-player
+yarn add @torutamahashi/video-player
+# or
+pnpm add @torutamahashi/video-player
 ```
+
+### Configuration(Optional)
+
+1. Add styling to your application:
+
+```typescript
+import '@torutamahashi/video-player/dist/style.css';
+```
+
+2. Configure TailwindCSS (if you want to customize styles):
+
+```javascript
+// tailwind.config.js
+module.exports = {
+  content: [
+    // ... your other content paths
+    './node_modules/@torutamahashi/video-player/dist/**/*.{js,ts,jsx,tsx}'
+  ],
+};
+```
+
+Note: TailwindCSS is an optional peer dependency. You can use the default styles without it.
 
 ## Basic Usage
 
 ```tsx
-import { VideoPlayer, Controls, Subtitles } from 'react-custom-video-player';
+import { VideoPlayer, Controls, Subtitles } from '@torutamahashi/video-player';
 
 function App() {
   return (
@@ -53,9 +77,11 @@ function App() {
 }
 ```
 
-## Using Chapters
+## Using Chapters and Subtitles
 
-The player supports WebVTT format chapter files:
+The player supports WebVTT format for both chapters and subtitles.
+
+### WebVTT Format Example
 
 ```vtt
 WEBVTT
@@ -67,7 +93,21 @@ WEBVTT
 2.0 Main Content
 ```
 
-Example with chapters:
+### Parsing WebVTT Files
+
+Built-in parsers are available for both chapters and subtitles:
+
+```typescript
+import { parseVTT, parseChapters } from '@torutamahashi/video-player';
+
+// Parse subtitles
+const subtitles = parseVTT(vttContent);
+
+// Parse chapters
+const chapters = parseChapters(vttContent);
+```
+
+### Using Chapters in Component
 
 ```tsx
 <VideoPlayer src="video.mp4">
@@ -82,61 +122,28 @@ Example with chapters:
 </VideoPlayer>
 ```
 
-## Using Subtitles
+## Customization
 
-The player supports WebVTT format subtitle files:
+### Icons
 
-```vtt
-WEBVTT
-
-00:00:01.000 --> 00:00:04.000
-Hello, world.
-
-00:00:04.000 --> 00:00:06.000
-Welcome!
-```
-
-### Parsing WebVTT Files
-
-You can use the built-in VTT parser to parse subtitle or chapter files:
-
-```typescript
-import { parseVTT, parseChapters } from 'react-custom-video-player';
-
-// Parse subtitles
-const subtitles = parseVTT(vttContent);
-
-// Parse chapters
-const chapters = parseChapters(vttContent);
-
-```
-
-## Customizing Icons
-
-You can replace the default icons with your own:
+You can provide your own icons (default icons are included):
 
 ```tsx
-// Example using lucide-react
-import { Play, Pause, Volume2, Volume1, Volume, VolumeX } from 'lucide-react';
-
 const customIcons = {
-  Play: ({ className }) => <Play className={className} />,
-  Pause: ({ className }) => <Pause className={className} />,
-  VolumeHigh: ({ className }) => <Volume2 className={className} />,
-  VolumeMedium: ({ className }) => <Volume1 className={className} />,
-  VolumeLow: ({ className }) => <Volume className={className} />,
-  VolumeX: ({ className }) => <VolumeX className={className} />
+  Play: ({ className }) => <YourPlayIcon className={className} />,
+  Pause: ({ className }) => <YourPauseIcon className={className} />,
+  VolumeHigh: ({ className }) => <YourVolumeHighIcon className={className} />,
+  VolumeMedium: ({ className }) => <YourVolumeMediumIcon className={className} />,
+  VolumeLow: ({ className }) => <YourVolumeLowIcon className={className} />,
+  VolumeX: ({ className }) => <YourVolumeXIcon className={className} />
 };
 
-<Controls
-  {...props}
-  customIcons={customIcons}
-/>
+<Controls {...props} customIcons={customIcons} />
 ```
 
-## Customizing Styles
+### Styles
 
-You can customize the styles using TailwindCSS:
+Customize using TailwindCSS utility classes:
 
 ```tsx
 <VideoPlayer className="rounded-lg overflow-hidden">
@@ -156,17 +163,20 @@ You can customize the styles using TailwindCSS:
 </VideoPlayer>
 ```
 
-## Component Props
+## API Reference
 
-### VideoPlayer
+### VideoPlayer Props
 
 | Prop | Type | Description |
 |------|------|-------------|
 | src | string | Video source URL |
 | className | string | Container class name |
-| children | function | Render props function |
+| children | (props: VideoPlayerRenderProps) => React.ReactNode | Render props function |
+| onTimeUpdate? | (currentTime: number) => void | Time update callback |
+| onPlay? | () => void | Play event callback |
+| onPause? | () => void | Pause event callback |
 
-### Controls
+### Controls Props
 
 | Prop | Type | Description |
 |------|------|-------------|
@@ -174,72 +184,30 @@ You can customize the styles using TailwindCSS:
 | currentTime | number | Current playback time |
 | duration | number | Video duration |
 | volume | number | Volume level (0-1) |
-| chapters | Chapter[] | Chapter information |
-| className | string | Controller class name |
-| customIcons | CustomIcons | Custom icon configuration |
+| chapters? | Chapter[] | Chapter information |
+| className? | string | Controller class name |
+| customIcons? | CustomIcons | Custom icon configuration |
+| progressBarClassName? | string | Progress bar class name |
 
-### Subtitles
+### Subtitles Props
 
 | Prop | Type | Description |
 |------|------|-------------|
 | subtitles | Subtitle[] | Subtitle data |
 | currentTime | number | Current playback time |
-| className | string | Subtitle class name |
-
-## Development Setup
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/react-custom-video-player.git
-
-# Install dependencies
-cd react-custom-video-player
-npm install
-
-# Start development server
-npm run dev
-
-# Build
-npm run build
-```
-
-## Key Features Explained
-
-### Thumbnail Preview
-- Shows video thumbnail when hovering over the progress bar
-- Caches thumbnails for better performance
-- Updates in real-time as you move the cursor
-
-### Chapter Markers
-- Visual markers on the progress bar
-- Click to jump to specific chapters
-- Tooltip showing chapter title and timestamp
-
-### Volume Control
-- Click icon to toggle mute
-- Drag slider to adjust volume
-- Icons change based on volume level
-- Remembers previous volume when unmuting
-
-### Progress Bar
-- Shows playback progress
-- Click to seek
-- Hover effect for unplayed portions
-- Integrated with chapter markers
-
-## Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
+| className? | string | Subtitle class name |
 
 ## TypeScript Support
 
-The library is written in TypeScript and includes full type definitions. Example type usage:
+The library includes comprehensive type definitions:
 
 ```typescript
-import { VideoPlayerRef, Chapter, Subtitle } from 'react-custom-video-player';
+import type { 
+  VideoPlayerRef, 
+  VideoPlayerProps,
+  Chapter, 
+  Subtitle 
+} from '@torutamahashi/video-player';
 
 const chapters: Chapter[] = [
   {
@@ -249,20 +217,13 @@ const chapters: Chapter[] = [
     title: "Introduction"
   }
 ];
-
-const subtitles: Subtitle[] = [
-  {
-    startTime: 0,
-    endTime: 5,
-    text: "Hello, world!"
-  }
-];
 ```
 
-## License
-
-MIT
 
 ## Contributing
 
-Issues and Pull Requests are always welcome! Please feel free to contribute to this project.
+Issues and Pull Requests are welcome! Please feel free to contribute to this project.
+
+## License
+
+MIT © [Toru Tamahashi](https://github.com/torutamahashi)
