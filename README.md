@@ -23,24 +23,30 @@ yarn add @torutamahashi/video-player
 pnpm add @torutamahashi/video-player
 ```
 
-### Configuration(Optional)
+### Add styling to your application
 
-1. Add styling to your application:
+1. tailwind css application
 
 ```typescript
-import '@torutamahashi/video-player/dist/style.css';
+// index.css
+@import '@torutamahashi/video-player/index.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 ```
 
-2. Configure TailwindCSS (if you want to customize styles):
+2. Remix with tailwind css
 
-```javascript
-// tailwind.config.js
-module.exports = {
-  content: [
-    // ... your other content paths
-    './node_modules/@torutamahashi/video-player/dist/**/*.{js,ts,jsx,tsx}'
-  ],
-};
+```typescript
+// root.tsx
+import videoPlayerStyles from '@torutamahashi/video-player/index.css?url';
+import styles from './tailwind.css?url';
+import type { LinksFunction } from '@remix-run/node';
+
+export const links: LinksFunction = () => [
+	{ rel: 'stylesheet', href: videoPlayerStyles },
+	{ rel: 'stylesheet', href: styles },
+];
 ```
 
 Note: TailwindCSS is an optional peer dependency. You can use the default styles without it.
