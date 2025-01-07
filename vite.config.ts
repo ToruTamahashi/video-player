@@ -29,11 +29,12 @@ export default defineConfig({
 					react: 'React',
 					'react-dom': 'ReactDOM',
 				},
+				assetFileNames: 'index.[ext]',
 				// CSSをchunkとして分離
 				// preserveModules: true,
 			},
 		},
 		// CSSの出力設定を明示的に指定
-		cssCodeSplit: false,
+		cssCodeSplit: true,
 	},
 });
