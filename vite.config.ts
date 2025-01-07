@@ -12,6 +12,14 @@ export default defineConfig({
 			insertTypesEntry: true,
 		}),
 	],
+	css: {
+		modules: {
+			// CSSモジュールを有効化
+			scopeBehaviour: 'local',
+			// 生成されるクラス名のパターン
+			generateScopedName: '[name]__[local]__[hash:base64:5]',
+		},
+	},
 	build: {
 		lib: {
 			entry: path.resolve(__dirname, 'src/index.ts'),
