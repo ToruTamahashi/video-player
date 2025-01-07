@@ -29,6 +29,11 @@ export default defineConfig({
 					react: 'React',
 					'react-dom': 'ReactDOM',
 				},
+				assetFileNames: (assetInfo) => {
+					// namesプロパティを使用
+					if (assetInfo.names?.includes('index.css')) return 'index.css';
+					return assetInfo.names?.[0] ?? '';
+				},
 			},
 		},
 	},

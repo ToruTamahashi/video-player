@@ -1,3 +1,4 @@
+import './index.css';  
 export { VideoPlayer } from './components/VideoPlayer/VideoPlayer';
 export { Controls } from './components/VideoPlayer/Controls';
 export { Subtitles } from './components/VideoPlayer/Subtitles';
@@ -10,4 +11,4 @@ export type {
 	VideoPlayerControls,
 } from './components/VideoPlayer/types';
 export { parseChapters, parseVTT } from './utils/vttParser';
-import './index.css'; 
+
