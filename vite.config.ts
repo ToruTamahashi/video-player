@@ -2,8 +2,7 @@ import { defineConfig } from 'vite';
 import path from 'path';
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
-import { libInjectCss } from 'vite-plugin-lib-inject-css';
-import type { PreRenderedAsset } from 'rollup';
+// import { libInjectCss } from 'vite-plugin-lib-inject-css';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -14,7 +13,7 @@ export default defineConfig({
 			insertTypesEntry: true,
 		}),
 		// CSSをJSにインジェクト
-		libInjectCss(),
+		// libInjectCss(),
 	],
 	build: {
 		lib: {
@@ -29,15 +28,6 @@ export default defineConfig({
 				globals: {
 					react: 'React',
 					'react-dom': 'ReactDOM',
-				},
-				assetFileNames: (assetInfo: PreRenderedAsset): string => {
-					// CSSファイルの出力名を設定
-					if (assetInfo.type === 'asset' && assetInfo.source) {
-						if (typeof assetInfo.source === 'string' && assetInfo.source.includes('@import')) {
-							return 'styles.css';
-						}
-					}
-					return '[name][extname]';
 				},
 
 				// CSSをchunkとして分離
