@@ -2,7 +2,6 @@ import { defineConfig } from 'vite';
 import path from 'path';
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
-import { libInjectCss } from 'vite-plugin-lib-inject-css';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -12,9 +11,8 @@ export default defineConfig({
 			include: ['src'],
 			insertTypesEntry: true,
 		}),
-		// CSSをJSにインジェクト
-		libInjectCss(),
 	],
+
 	build: {
 		lib: {
 			entry: path.resolve(__dirname, 'src/index.ts'),
@@ -29,9 +27,12 @@ export default defineConfig({
 					react: 'React',
 					'react-dom': 'ReactDOM',
 				},
+
 				// CSSをchunkとして分離
-				preserveModules: true,
+				// preserveModules: true,
 			},
 		},
+		// CSSの出力設定を明示的に指定
+		cssCodeSplit: true,
 	},
 });

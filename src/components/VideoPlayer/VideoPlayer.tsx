@@ -32,6 +32,7 @@ export const VideoPlayer = forwardRef<VideoPlayerRef, VideoPlayerProps>(
 			if (videoRef.current) {
 				setDuration(videoRef.current.duration);
 				setVolume(videoRef.current.volume);
+				handlePause();
 			}
 		};
 
