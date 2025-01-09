@@ -155,7 +155,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
 				<div className="absolute top-0 left-0 w-full h-full pointer-events-none">
 					<div className="relative w-full h-full">
 						{chapters.map((chapter) => (
-							<ChapterMarker key={chapter.id} chapter={chapter} duration={duration} />
+							<ChapterMarker key={chapter.startTime} chapter={chapter} duration={duration} />
 						))}
 					</div>
 				</div>

@@ -15,7 +15,7 @@ export const ChapterMarker: React.FC<ChapterMarkerProps> = ({ chapter, duration 
 		<div
 			className="absolute top-0 w-0.5 h-full bg-white/80 transform -translate-x-1/2 hover:bg-yellow-400 transition-colors pointer-events-auto cursor-pointer"
 			style={{ left: `${position}%` }}
-			title={`${chapter.title} (${formattedTime})`}
+			title={`${chapter.text} (${formattedTime})`}
 		/>
 	);
 };
