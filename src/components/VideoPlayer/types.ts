@@ -1,18 +1,14 @@
 // src/components/VideoPlayer/types.ts
 import { ComponentType, ReactNode } from 'react';
 
-export interface Subtitle {
+export interface WebVTT {
 	startTime: number;
 	endTime: number;
 	text: string;
 }
+export type Subtitle = WebVTT;
 
-export interface Chapter {
-	id: number;
-	startTime: number;
-	endTime: number;
-	title: string;
-}
+export type Chapter = WebVTT;
 
 export interface VideoPlayerState {
 	isPlaying: boolean;

@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 
 import { Play, Pause, Volume2, Volume1, Volume, VolumeX } from 'lucide-react';
 import { Chapter, Subtitle, VideoPlayerRef } from '../../components/VideoPlayer/types';
-import { parseChapters, parseVTT } from '../../utils/vttParser';
+import { parseVTT } from '../../utils/vttParser';
 import { VideoPlayer } from '../../components/VideoPlayer/VideoPlayer';
 import { Subtitles } from '../../components/VideoPlayer/Subtitles';
 import { Controls } from '../../components/VideoPlayer/Controls';
@@ -27,7 +27,7 @@ export const App: React.FC = () => {
 		if (file) {
 			try {
 				const text = await file.text();
-				const parsedChapters = parseChapters(text);
+				const parsedChapters = parseVTT(text);
 				setChapters(parsedChapters);
 			} catch (error) {
 				console.error('Failed to parse chapter file:', error);
@@ -142,11 +142,11 @@ export const App: React.FC = () => {
 							<div className="divide-y divide-gray-200 max-h-[600px] overflow-y-auto">
 								{chapters.map((chapter) => (
 									<button
-										key={chapter.id}
+										key={chapter.startTime}
 										onClick={() => handleChapterClick(chapter.startTime)}
 										className="w-full px-4 py-2 text-left hover:bg-gray-50 focus:outline-none focus:bg-gray-50"
 									>
-										<div className="font-medium text-gray-900">{chapter.title}</div>
+										<div className="font-medium text-gray-900">{chapter.text}</div>
 										<div className="text-sm text-gray-500 tabular-nums">
 											{new Date(chapter.startTime * 1000).toISOString().substr(11, 8)}
 										</div>
