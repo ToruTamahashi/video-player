@@ -2,6 +2,7 @@
 import { ComponentType, ReactNode } from 'react';
 
 export interface WebVTT {
+	index: number;
 	startTime: number;
 	endTime: number;
 	text: string;

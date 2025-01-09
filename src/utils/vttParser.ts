@@ -4,6 +4,7 @@ export const parseVTT = (vttContent: string): WebVTT[] => {
 	const lines = vttContent.trim().split('\n');
 	const vttContents: WebVTT[] = [];
 	let currentVtt: Partial<WebVTT> = {};
+	let currentIndex = 0;
 
 	// VTTヘッダーをスキップ
 	let i = 1;
@@ -23,9 +24,11 @@ export const parseVTT = (vttContent: string): WebVTT[] => {
 			});
 
 			currentVtt = {
+				index: currentIndex,
 				startTime,
 				endTime,
 			};
+			currentIndex++;
 		} else if (line && currentVtt.startTime !== undefined) {
 			currentVtt.text = line;
 			vttContents.push(currentVtt as WebVTT);
