@@ -197,6 +197,21 @@ for now WebVTTType = SubtitleType = ChapterType
 
 Issues and Pull Requests are welcome! Please feel free to contribute to this project.
 
+## Feedback
+
+We'd love to hear your thoughts, suggestions, or any issues you encounter while using `@torutamahashi/video-player`. Your feedback helps us improve and make the library even better!
+
+### How to Share Feedback
+
+- **Bug Reports and Feature Requests**  
+  Please open an [issue](https://github.com/torutamahashi/video-player/issues).  
+  Use the provided templates for bug reports or feature requests to help us understand your feedback clearly.
+
+- **Quick Feedback**  
+  If you prefer, fill out this [short feedback form](https://docs.google.com/forms/d/e/1FAIpQLSe2U4hTRGFkOe4aBmHBjLbmtoU2yTWc5vTP-NsfVZCXyxBg5Q/viewform?usp=header).
+
+
+
 ## License
 
 MIT © [Toru Tamahashi](https://github.com/torutamahashi)
