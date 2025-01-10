@@ -1,6 +1,6 @@
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 
-// サムネイルキャッシュを管理するカスタムフック
+// Custom hook to manage the thumbnail cache
 const useThumbnailCache = (videoRef: React.RefObject<HTMLVideoElement>) => {
 	const cacheRef = useRef<Record<number, string>>({});
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -64,13 +64,13 @@ const useThumbnailCache = (videoRef: React.RefObject<HTMLVideoElement>) => {
 	return getThumbnail;
 };
 
-interface ThumbnailPreviewProps {
+interface ThumbnailPreviewPropsType {
 	videoRef: React.RefObject<HTMLVideoElement>;
 	time: number;
 	className?: string;
 }
 
-export const ThumbnailPreview: React.FC<ThumbnailPreviewProps> = ({ videoRef, time, className = '' }) => {
+export const ThumbnailPreview: React.FC<ThumbnailPreviewPropsType> = ({ videoRef, time, className = '' }) => {
 	const [thumbnail, setThumbnail] = useState<string | null>(null);
 	const getThumbnail = useThumbnailCache(videoRef);
 

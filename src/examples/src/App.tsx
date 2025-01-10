@@ -1,4 +1,3 @@
-// examples/src/App.tsx
 import React, { useRef, useState } from 'react';
 
 import { Play, Pause, Volume2, Volume1, Volume, VolumeX, Settings } from 'lucide-react';
@@ -54,7 +53,6 @@ export const App: React.FC = () => {
 		playerRef.current?.seek(startTime);
 	};
 
-	// lucide-reactのアイコンをカスタムアイコンとして設定
 	const customIcons = {
 		Play: ({ className }: { className?: string }) => <Play className={className} />,
 		Pause: ({ className }: { className?: string }) => <Pause className={className} />,

@@ -1,4 +1,3 @@
-// src/components/VideoPlayer/ProgressBar/ProgressBar.tsx
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 import { ThumbnailPreview } from './ThumbnailPreview';
 import { ChapterMarker } from './ChapterMarker';
@@ -14,7 +13,7 @@ interface ProgressBarPropsType {
 	videoRef: React.RefObject<HTMLVideoElement>;
 }
 
-const POPUP_PADDING = 8; // ポップアップのパディング
+const POPUP_PADDING = 8; // Padding for the popup
 
 const ProgressBar: React.FC<ProgressBarPropsType> = ({
 	currentTime,
@@ -31,7 +30,7 @@ const ProgressBar: React.FC<ProgressBarPropsType> = ({
 	const [isHovering, setIsHovering] = useState(false);
 	const lastUpdateRef = useRef<number>(0);
 
-	// プレビューの表示位置を計算（画面端での調整を含む）
+	// Calculate the position of the preview (including adjustments for screen edges)
 	const calculatePreviewPosition = useCallback((rawPosition: number) => {
 		if (!progressRef.current || !previewRef.current) return;
 
@@ -40,19 +39,19 @@ const ProgressBar: React.FC<ProgressBarPropsType> = ({
 		const totalWidth = progressRect.width;
 		const previewWidth = previewRect.width;
 
-		// 左端からの絶対位置（ピクセル）
+		// Absolute position from the left edge (in pixels)
 		const positionPx = rawPosition * totalWidth;
 
 		let left;
-		// 左端の調整
+		// Adjustment for the left edge
 		if (positionPx < previewWidth / 2 + POPUP_PADDING) {
 			left = `${POPUP_PADDING}px`;
 		}
-		// 右端の調整
+		// Adjustment for the right edge
 		else if (positionPx > totalWidth - previewWidth / 2 - POPUP_PADDING) {
 			left = `calc(100% - ${previewWidth + POPUP_PADDING}px)`;
 		}
-		// 通常のセンター位置
+		// Default centered position
 		else {
 			left = `calc(${rawPosition * 100}% - ${previewWidth / 2}px)`;
 		}
@@ -60,10 +59,10 @@ const ProgressBar: React.FC<ProgressBarPropsType> = ({
 		setPreviewStyle({ left });
 	}, []);
 
-	// プレビューのマウント時に位置を計算
+	// Calculate position on preview mount
 	useEffect(() => {
 		if (previewInfo) {
-			// 少し遅延を入れてDOMの更新を待つ
+			// Introduce a slight delay to wait for DOM updates
 			const timer = setTimeout(() => {
 				calculatePreviewPosition(previewInfo.position);
 			}, 0);
@@ -114,7 +113,7 @@ const ProgressBar: React.FC<ProgressBarPropsType> = ({
 
 	return (
 		<div className="relative group">
-			{/* プレビューポップアップ */}
+			{/* Preview popup */}
 			{isHovering && previewInfo && (
 				<div ref={previewRef} className="absolute bottom-4 bg-black rounded p-1 z-20" style={previewStyle}>
 					<ThumbnailPreview videoRef={videoRef} time={previewInfo.time} className="rounded mb-1" />
@@ -122,7 +121,7 @@ const ProgressBar: React.FC<ProgressBarPropsType> = ({
 				</div>
 			)}
 
-			{/* プログレスバー */}
+			{/* Progress bar */}
 			<div
 				ref={progressRef}
 				className={`relative w-full h-1 cursor-pointer ${className}`}
@@ -131,16 +130,16 @@ const ProgressBar: React.FC<ProgressBarPropsType> = ({
 				onMouseEnter={handleMouseEnter}
 				onMouseLeave={handleMouseLeave}
 			>
-				{/* ベース（グレー） */}
+				{/* Base (gray) */}
 				<div className="absolute top-0 left-0 w-full h-full bg-gray-600" />
 
-				{/* 再生済み部分（赤） */}
+				{/* Played portion (red) */}
 				<div
 					className="absolute top-0 left-0 h-full bg-red-600 transition-all duration-100"
 					style={{ width: `${progressPercent}%` }}
 				/>
 
-				{/* ホバーエフェクト（未再生部分のみ） */}
+				{/* Hover effect (only for unplayed portion) */}
 				{isHovering && previewInfo && (
 					<div
 						className="absolute top-0 h-full bg-white/30 transition-all duration-100"
@@ -151,7 +150,7 @@ const ProgressBar: React.FC<ProgressBarPropsType> = ({
 					/>
 				)}
 
-				{/* チャプターマーカー（最前面に表示） */}
+				{/* Chapter markers (displayed on top layer) */}
 				<div className="absolute top-0 left-0 w-full h-full pointer-events-none">
 					<div className="relative w-full h-full">
 						{chapters.map((chapter) => (

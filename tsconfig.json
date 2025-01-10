@@ -9,7 +9,7 @@
 		"isolatedModules": true,
 		"jsx": "react-jsx",
 
-		/* 型定義ファイル生成用の設定 */
+		/* Settings for generating type definition files */
 		"declaration": true,
 		"declarationDir": "dist",
 		"emitDeclarationOnly": true,

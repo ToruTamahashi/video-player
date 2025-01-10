@@ -5,20 +5,20 @@ export const formatTime = (timeInSeconds: number): string => {
 	const minutes = Math.floor((timeInSeconds % 3600) / 60);
 	const seconds = Math.floor(timeInSeconds % 60);
 
-	// 動画が1時間以上の場合は hh:mm:ss 形式
+	// If the video is longer than 1 hour, use hh:mm:ss format
 	if (hours > 0) {
 		return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 	}
-	// 1時間未満の場合は mm:ss 形式
+	// For less than 1 hour, use mm:ss format
 	return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 };
 
-// 2つの時間を同じフォーマットで表示するためのユーティリティ
+// Utility to display two times in the same format
 export const formatTimePair = (currentTime: number, totalTime: number): [string, string] => {
 	const hasHours = totalTime >= 3600;
 
 	if (hasHours) {
-		// 両方とも hh:mm:ss 形式で返す
+		// Return both times in hh:mm:ss format
 		const formatWithHours = (time: number) => {
 			const h = Math.floor(time / 3600);
 			const m = Math.floor((time % 3600) / 60);
@@ -27,7 +27,7 @@ export const formatTimePair = (currentTime: number, totalTime: number): [string,
 		};
 		return [formatWithHours(currentTime), formatWithHours(totalTime)];
 	} else {
-		// 両方とも mm:ss 形式で返す
+		// Return both times in mm:ss format
 		const formatMinutesSeconds = (time: number) => {
 			const m = Math.floor(time / 60);
 			const s = Math.floor(time % 60);
