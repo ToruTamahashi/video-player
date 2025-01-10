@@ -2,7 +2,7 @@
 import React, { useRef, useState } from 'react';
 
 import { Play, Pause, Volume2, Volume1, Volume, VolumeX } from 'lucide-react';
-import { Chapter, Subtitle, VideoPlayerRef } from '../../components/VideoPlayer/types';
+import { ChapterType, SubtitleType, VideoPlayerRefType } from '../../components/VideoPlayer/types';
 import { parseVTT } from '../../utils/vttParser';
 import { VideoPlayer } from '../../components/VideoPlayer/VideoPlayer';
 import { Subtitles } from '../../components/VideoPlayer/Subtitles';
@@ -10,9 +10,9 @@ import { Controls } from '../../components/VideoPlayer/Controls';
 
 export const App: React.FC = () => {
 	const [videoSrc, setVideoSrc] = useState<string>();
-	const [chapters, setChapters] = useState<Chapter[]>([]);
-	const [subtitles, setSubtitles] = useState<Subtitle[]>([]);
-	const playerRef = useRef<VideoPlayerRef>(null);
+	const [chapters, setChapters] = useState<ChapterType[]>([]);
+	const [subtitles, setSubtitles] = useState<SubtitleType[]>([]);
+	const playerRef = useRef<VideoPlayerRefType>(null);
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];

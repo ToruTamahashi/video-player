@@ -2,13 +2,13 @@
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 import { ThumbnailPreview } from './ThumbnailPreview';
 import { ChapterMarker } from './ChapterMarker';
-import { Chapter } from '../types';
+import { ChapterType } from '../types';
 import { formatTimePair } from '../../../utils/time';
 
-interface ProgressBarProps {
+interface ProgressBarPropsType {
 	currentTime: number;
 	duration: number;
-	chapters?: Chapter[];
+	chapters?: ChapterType[];
 	onSeek: (time: number) => void;
 	className?: string;
 	videoRef: React.RefObject<HTMLVideoElement>;
@@ -16,7 +16,7 @@ interface ProgressBarProps {
 
 const POPUP_PADDING = 8; // ポップアップのパディング
 
-const ProgressBar: React.FC<ProgressBarProps> = ({
+const ProgressBar: React.FC<ProgressBarPropsType> = ({
 	currentTime,
 	duration,
 	chapters = [],

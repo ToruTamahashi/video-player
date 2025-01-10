@@ -10,9 +10,9 @@ import {
 } from './icons/DefaultIcons';
 import ProgressBar from './ProgressBar';
 import { formatTimePair } from '../../utils/time';
-import { ControlsProps } from './types';
+import { ControlsPropsType } from './types';
 
-export const Controls: React.FC<ControlsProps> = ({
+export const Controls: React.FC<ControlsPropsType> = ({
 	isPlaying,
 	currentTime,
 	duration,

@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
-import { Subtitle } from './types';
+import { SubtitleType } from './types';
 
-interface SubtitlesProps {
-	subtitles?: Subtitle[];
+interface SubtitlesPropsType {
+	subtitles?: SubtitleType[];
 	currentTime: number;
 	className?: string;
 }
 
-export const Subtitles: React.FC<SubtitlesProps> = ({ subtitles = [], currentTime, className = '' }) => {
+export const Subtitles: React.FC<SubtitlesPropsType> = ({ subtitles = [], currentTime, className = '' }) => {
 	const currentSubtitle = useMemo(() => {
 		return subtitles.find((subtitle) => currentTime >= subtitle.startTime && currentTime <= subtitle.endTime);
 	}, [subtitles, currentTime]);

@@ -1,9 +1,9 @@
-import { WebVTT } from '../components/VideoPlayer/types';
+import { WebVTTType } from '../components/VideoPlayer/types';
 
-export const parseVTT = (vttContent: string): WebVTT[] => {
+export const parseVTT = (vttContent: string): WebVTTType[] => {
 	const lines = vttContent.trim().split('\n');
-	const vttContents: WebVTT[] = [];
-	let currentVtt: Partial<WebVTT> = {};
+	const vttContents: WebVTTType[] = [];
+	let currentVtt: Partial<WebVTTType> = {};
 	let currentIndex = 0;
 
 	// VTTヘッダーをスキップ
@@ -31,7 +31,7 @@ export const parseVTT = (vttContent: string): WebVTT[] => {
 			currentIndex++;
 		} else if (line && currentVtt.startTime !== undefined) {
 			currentVtt.text = line;
-			vttContents.push(currentVtt as WebVTT);
+			vttContents.push(currentVtt as WebVTTType);
 			currentVtt = {};
 		}
 

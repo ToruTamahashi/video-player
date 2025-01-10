@@ -1,13 +1,13 @@
 import React from 'react';
-import { Chapter } from '../types';
+import { ChapterType } from '../types';
 import { formatTimePair } from '../../../utils/time';
 
-interface ChapterMarkerProps {
-	chapter: Chapter;
+interface ChapterMarkerPropsType {
+	chapter: ChapterType;
 	duration: number;
 }
 
-export const ChapterMarker: React.FC<ChapterMarkerProps> = ({ chapter, duration }) => {
+export const ChapterMarker: React.FC<ChapterMarkerPropsType> = ({ chapter, duration }) => {
 	const position = (chapter.startTime / duration) * 100;
 	const [formattedTime] = formatTimePair(chapter.startTime, duration);
 

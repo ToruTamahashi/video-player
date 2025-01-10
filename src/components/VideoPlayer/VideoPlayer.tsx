@@ -1,7 +1,7 @@
 import { forwardRef, useRef, useImperativeHandle, useState } from 'react';
-import { VideoPlayerProps, VideoPlayerRef } from './types';
+import { VideoPlayerPropsType, VideoPlayerRefType } from './types';
 
-export const VideoPlayer = forwardRef<VideoPlayerRef, VideoPlayerProps>(
+export const VideoPlayer = forwardRef<VideoPlayerRefType, VideoPlayerPropsType>(
 	({ src, className = '', onTimeUpdate, onPlay, onPause, children }, ref) => {
 		const videoRef = useRef<HTMLVideoElement>(null);
 		const [isPlaying, setIsPlaying] = useState(false);

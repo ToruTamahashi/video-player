@@ -54,17 +54,14 @@ Note: TailwindCSS is an optional peer dependency. You can use the default styles
 ## Basic Usage
 
 ```tsx
-import { VideoPlayer, Controls, Subtitles } from '@torutamahashi/video-player';
+import { VideoPlayer, Controls, VideoPlayerRefType } from '@torutamahashi/video-player';
 
 function App() {
+  const playerRef = useRef<VideoPlayerRefType>(null);
   return (
-    <VideoPlayer src="path/to/video.mp4">
+    <VideoPlayer ref={playerRef} src="path/to/video.mp4">
       {({ videoRef, state, controls }) => (
         <>
-          <Subtitles
-            subtitles={subtitles}
-            currentTime={state.currentTime}
-          />
           <Controls
             videoRef={videoRef}
             isPlaying={state.isPlaying}
@@ -104,13 +101,13 @@ WEBVTT
 Built-in parsers are available for both chapters and subtitles:
 
 ```typescript
-import { parseVTT, parseChapters } from '@torutamahashi/video-player';
+import { parseVTT } from '@torutamahashi/video-player';
 
 // Parse subtitles
 const subtitles = parseVTT(vttContent);
 
 // Parse chapters
-const chapters = parseChapters(vttContent);
+const chapters = parseVTT(vttContent);
 ```
 
 ### Using Chapters in Component
@@ -169,61 +166,28 @@ Customize using TailwindCSS utility classes:
 </VideoPlayer>
 ```
 
-## API Reference
-
-### VideoPlayer Props
-
-| Prop | Type | Description |
-|------|------|-------------|
-| src | string | Video source URL |
-| className | string | Container class name |
-| children | (props: VideoPlayerRenderProps) => React.ReactNode | Render props function |
-| onTimeUpdate? | (currentTime: number) => void | Time update callback |
-| onPlay? | () => void | Play event callback |
-| onPause? | () => void | Pause event callback |
-
-### Controls Props
-
-| Prop | Type | Description |
-|------|------|-------------|
-| isPlaying | boolean | Playback state |
-| currentTime | number | Current playback time |
-| duration | number | Video duration |
-| volume | number | Volume level (0-1) |
-| chapters? | Chapter[] | Chapter information |
-| className? | string | Controller class name |
-| customIcons? | CustomIcons | Custom icon configuration |
-| progressBarClassName? | string | Progress bar class name |
-
-### Subtitles Props
-
-| Prop | Type | Description |
-|------|------|-------------|
-| subtitles | Subtitle[] | Subtitle data |
-| currentTime | number | Current playback time |
-| className? | string | Subtitle class name |
-
 ## TypeScript Support
 
 The library includes comprehensive type definitions:
 
 ```typescript
 import type { 
-  VideoPlayerRef, 
-  VideoPlayerProps,
-  Chapter, 
-  Subtitle 
+  VideoPlayerRefType, 
+  VideoPlayerPropsType,
+  ChapterType, 
+  SubtitleType,
+  WebVTTType
 } from '@torutamahashi/video-player';
 
 const chapters: Chapter[] = [
   {
-    id: 1,
     startTime: 0,
     endTime: 150,
     title: "Introduction"
   }
 ];
 ```
+for now WebVTTType = SubtitleType = ChapterType
 
 
 ## Contributing

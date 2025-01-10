@@ -1,46 +1,46 @@
 // src/components/VideoPlayer/types.ts
 import { ComponentType, ReactNode } from 'react';
 
-export interface WebVTT {
+export interface WebVTTType {
 	index: number;
 	startTime: number;
 	endTime: number;
 	text: string;
 }
-export type Subtitle = WebVTT;
+export type SubtitleType = WebVTTType;
 
-export type Chapter = WebVTT;
+export type ChapterType = WebVTTType;
 
-export interface VideoPlayerState {
+export interface VideoPlayerStateType {
 	isPlaying: boolean;
 	currentTime: number;
 	duration: number;
 	volume: number;
 }
 
-export interface VideoPlayerControls {
+export interface VideoPlayerControlsType {
 	play: () => void;
 	pause: () => void;
 	seek: (time: number) => void;
 	setVolume: (volume: number) => void;
 }
 
-export interface VideoPlayerRenderProps {
+export interface VideoPlayerRenderPropsType {
 	videoRef: React.RefObject<HTMLVideoElement>;
-	state: VideoPlayerState;
-	controls: VideoPlayerControls;
+	state: VideoPlayerStateType;
+	controls: VideoPlayerControlsType;
 }
 
-export interface VideoPlayerProps {
+export interface VideoPlayerPropsType {
 	src?: string;
 	className?: string;
 	onTimeUpdate?: (currentTime: number) => void;
 	onPlay?: () => void;
 	onPause?: () => void;
-	children?: (props: VideoPlayerRenderProps) => ReactNode;
+	children?: (props: VideoPlayerRenderPropsType) => ReactNode;
 }
 
-export interface VideoPlayerRef {
+export interface VideoPlayerRefType {
 	play: () => void;
 	pause: () => void;
 	getCurrentTime: () => number;
@@ -48,12 +48,12 @@ export interface VideoPlayerRef {
 	seek: (time: number) => void;
 }
 
-export interface ControlsProps {
+export interface ControlsPropsType {
 	isPlaying: boolean;
 	currentTime: number;
 	duration: number;
 	volume: number;
-	chapters?: Chapter[];
+	chapters?: ChapterType[];
 	videoRef: React.RefObject<HTMLVideoElement>;
 	onPlay: () => void;
 	onPause: () => void;
@@ -62,10 +62,10 @@ export interface ControlsProps {
 	className?: string;
 	progressBarClassName?: string;
 	children?: React.ReactNode;
-	customIcons?: CustomIcons;
+	customIcons?: CustomIconsType;
 }
 
-export interface CustomIcons {
+export interface CustomIconsType {
 	Play?: ComponentType<{ className?: string }>;
 	Pause?: ComponentType<{ className?: string }>;
 	VolumeHigh?: ComponentType<{ className?: string }>;
