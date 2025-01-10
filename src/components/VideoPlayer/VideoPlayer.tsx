@@ -54,10 +54,10 @@ export const VideoPlayer = forwardRef<VideoPlayerRef, VideoPlayerProps>(
 		};
 
 		return (
-			<div className={`relative w-full ${className}`}>
+			<div className={`relative w-full aspect-video bg-black ${className}`}>
 				<video
 					ref={videoRef}
-					className="w-full"
+					className="w-full h-full"
 					onTimeUpdate={handleTimeUpdate}
 					onLoadedMetadata={handleLoadedMetadata}
 					onPlay={handlePlay}
