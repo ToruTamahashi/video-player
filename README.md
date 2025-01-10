@@ -2,6 +2,8 @@
 
 A highly customizable React video player component with chapter markers, subtitles, and thumbnail preview functionality.
 
+![Demo](docs/demo.gif)
+
 ## Features
 
 - 📝 Chapter and subtitle support with WebVTT format

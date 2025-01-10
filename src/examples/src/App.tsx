@@ -1,7 +1,7 @@
 // examples/src/App.tsx
 import React, { useRef, useState } from 'react';
 
-import { Play, Pause, Volume2, Volume1, Volume, VolumeX } from 'lucide-react';
+import { Play, Pause, Volume2, Volume1, Volume, VolumeX, Settings } from 'lucide-react';
 import { ChapterType, SubtitleType, VideoPlayerRefType } from '../../components/VideoPlayer/types';
 import { parseVTT } from '../../utils/vttParser';
 import { VideoPlayer } from '../../components/VideoPlayer/VideoPlayer';
@@ -127,12 +127,7 @@ export const App: React.FC = () => {
 											>
 												Restart
 											</button>
-											<button
-												className=" text-white text-sm px-3 py-1 rounded bg-violet-600 hover:bg-violet-700"
-												onClick={() => controls.seek(0)}
-											>
-												Restart
-											</button>
+											<Settings className="text-white" />
 										</div>
 									</Controls>
 								</>
