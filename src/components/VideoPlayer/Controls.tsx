@@ -63,7 +63,7 @@ export const Controls: React.FC<ControlsProps> = ({
 				videoRef={videoRef}
 			/>
 
-			<div className="flex items-center space-x-4 mt-2">
+			<div className="grid grid-cols-[auto_auto_auto_1fr] items-center gap-4 mt-2">
 				<button className="text-white hover:text-gray-300" onClick={isPlaying ? onPause : onPlay}>
 					{isPlaying ? <PauseIcon className="w-6 h-6" /> : <PlayIcon className="w-6 h-6" />}
 				</button>
@@ -97,8 +97,7 @@ export const Controls: React.FC<ControlsProps> = ({
 						/>
 					</div>
 				</div>
-
-				{children}
+				<div>{children}</div>
 			</div>
 		</div>
 	);

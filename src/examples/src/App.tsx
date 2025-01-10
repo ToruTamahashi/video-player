@@ -120,12 +120,20 @@ export const App: React.FC = () => {
 										progressBarClassName="h-2"
 										customIcons={customIcons}
 									>
-										<button
-											className="ml-auto text-white text-sm px-3 py-1 rounded bg-violet-600 hover:bg-violet-700"
-											onClick={() => controls.seek(0)}
-										>
-											Restart
-										</button>
+										<div className="flex justify-between">
+											<button
+												className=" text-white text-sm px-3 py-1 rounded bg-violet-600 hover:bg-violet-700"
+												onClick={() => controls.seek(0)}
+											>
+												Restart
+											</button>
+											<button
+												className=" text-white text-sm px-3 py-1 rounded bg-violet-600 hover:bg-violet-700"
+												onClick={() => controls.seek(0)}
+											>
+												Restart
+											</button>
+										</div>
 									</Controls>
 								</>
 							)}
