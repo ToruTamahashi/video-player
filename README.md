@@ -79,6 +79,7 @@ function App() {
   );
 }
 ```
+[more examples](src/examples/)
 
 ## Using Chapters and Subtitles
 
