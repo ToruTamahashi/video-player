@@ -2,7 +2,9 @@
 
 A highly customizable React video player component with chapter markers, subtitles, and thumbnail preview functionality.
 
-![Demo](docs/demo.gif)
+[Demo](https://stackblitz.com/edit/vitejs-vite-sofwrgiu?file=src%2FApp.tsx)
+
+![movie](docs/demo.gif)
 
 ## Features
 
@@ -81,7 +83,6 @@ function App() {
   );
 }
 ```
-[more examples](src/examples/)
 
 ## Using Chapters and Subtitles
 
