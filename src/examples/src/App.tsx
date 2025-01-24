@@ -1,11 +1,13 @@
 import React, { useRef, useState } from 'react';
 
-import { Play, Pause, Volume2, Volume1, Volume, VolumeX, Settings } from 'lucide-react';
+import { Play, Pause, Volume2, Volume1, Volume, VolumeX } from 'lucide-react';
 import { ChapterType, SubtitleType, VideoPlayerRefType } from '../../components/VideoPlayer/types';
 import { parseVTT } from '../../utils/vttParser';
 import { VideoPlayer } from '../../components/VideoPlayer/VideoPlayer';
 import { Subtitles } from '../../components/VideoPlayer/Subtitles';
 import { Controls } from '../../components/VideoPlayer/Controls';
+import { ControlsWrapper } from '../../components/VideoPlayer/wrappers/ControlsWrapper';
+import ProgressBar from '../../components/VideoPlayer/ProgressBar';
 
 export const App: React.FC = () => {
 	const [videoSrc, setVideoSrc] = useState<string>();
@@ -99,35 +101,42 @@ export const App: React.FC = () => {
 			<div className="grid grid-cols-1 md:grid-cols-4 gap-4">
 				<div className="md:col-span-3">
 					{videoSrc && (
-						<VideoPlayer ref={playerRef} src={videoSrc} className="rounded-lg overflow-hidden">
+						<VideoPlayer ref={playerRef} src={videoSrc} className="rounded-lg overflow-hidden ">
 							{({ videoRef, state, controls }) => (
 								<>
 									<Subtitles subtitles={subtitles} currentTime={state.currentTime} className="mb-4 text-lg" />
-									<Controls
-										videoRef={videoRef}
-										isPlaying={state.isPlaying}
-										currentTime={state.currentTime}
-										duration={state.duration}
-										volume={state.volume}
-										chapters={chapters}
-										onPlay={controls.play}
-										onPause={controls.pause}
-										onSeek={controls.seek}
-										onVolumeChange={controls.setVolume}
-										className="bg-black/70 p-3"
-										progressBarClassName="h-2"
-										customIcons={customIcons}
-									>
-										<div className="flex justify-between">
-											<button
-												className=" text-white text-sm px-3 py-1 rounded bg-violet-600 hover:bg-violet-700"
-												onClick={() => controls.seek(0)}
-											>
-												Restart
-											</button>
-											<Settings className="text-white" />
-										</div>
-									</Controls>
+									<ControlsWrapper className='bg-red-400'>
+										<ProgressBar
+											currentTime={state.currentTime}
+											duration={state.duration}
+											chapters={chapters}
+											onSeek={controls.seek}
+											height="sm"
+											progressColor="#DC2626"
+											videoRef={videoRef}
+										/>
+										<Controls
+											isPlaying={state.isPlaying}
+											currentTime={state.currentTime}
+											duration={state.duration}
+											volume={state.volume}
+											onPlay={controls.play}
+											onPause={controls.pause}
+											onVolumeChange={controls.setVolume}
+											className="bg-black/70 p-3"
+											customIcons={customIcons}
+										>
+											{/* <div className="flex justify-between">
+												<button
+													className=" text-white text-sm px-3 py-1 rounded bg-violet-600 hover:bg-violet-700"
+													onClick={() => controls.seek(0)}
+												>
+													Restart
+												</button>
+												<Settings className="text-white" />
+											</div> */}
+										</Controls>
+									</ControlsWrapper>
 								</>
 							)}
 						</VideoPlayer>

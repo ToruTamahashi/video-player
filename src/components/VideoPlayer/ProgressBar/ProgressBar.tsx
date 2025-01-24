@@ -4,6 +4,8 @@ import { ChapterMarker } from './ChapterMarker';
 import { ChapterType } from '../types';
 import { formatTimePair } from '../../../utils/time';
 
+type HeightOption = 'sm' | 'md' | 'lg';
+
 interface ProgressBarPropsType {
 	currentTime: number;
 	duration: number;
@@ -11,9 +13,18 @@ interface ProgressBarPropsType {
 	onSeek: (time: number) => void;
 	className?: string;
 	videoRef: React.RefObject<HTMLVideoElement>;
+	height?: HeightOption;
+	baseColor?: string;
+	progressColor?: string;
 }
 
 const POPUP_PADDING = 8; // Padding for the popup
+
+const heightMap: Record<HeightOption, string> = {
+	sm: 'h-1',
+	md: 'h-2',
+	lg: 'h-3',
+};
 
 const ProgressBar: React.FC<ProgressBarPropsType> = ({
 	currentTime,
@@ -22,6 +33,9 @@ const ProgressBar: React.FC<ProgressBarPropsType> = ({
 	onSeek,
 	className = '',
 	videoRef,
+	height = 'sm',
+	baseColor = '#4B5563',
+	progressColor = '#DC2626',
 }) => {
 	const progressRef = useRef<HTMLDivElement>(null);
 	const previewRef = useRef<HTMLDivElement>(null);
@@ -124,19 +138,19 @@ const ProgressBar: React.FC<ProgressBarPropsType> = ({
 			{/* Progress bar */}
 			<div
 				ref={progressRef}
-				className={`relative w-full h-1 cursor-pointer ${className}`}
+				className={`relative w-full cursor-pointer ${heightMap[height]} ${className}`}
 				onClick={handleClick}
 				onMouseMove={handleMouseMove}
 				onMouseEnter={handleMouseEnter}
 				onMouseLeave={handleMouseLeave}
 			>
 				{/* Base (gray) */}
-				<div className="absolute top-0 left-0 w-full h-full bg-gray-600" />
+				<div className={`absolute top-0 left-0 w-full h-full`} style={{ backgroundColor: baseColor }} />
 
 				{/* Played portion (red) */}
 				<div
-					className="absolute top-0 left-0 h-full bg-red-600 transition-all duration-100"
-					style={{ width: `${progressPercent}%` }}
+					className={`absolute top-0 left-0 h-full transition-all duration-100`}
+					style={{ backgroundColor: progressColor, width: `${progressPercent}%` }}
 				/>
 
 				{/* Hover effect (only for unplayed portion) */}
@@ -150,7 +164,7 @@ const ProgressBar: React.FC<ProgressBarPropsType> = ({
 					/>
 				)}
 
-				{/* Chapter markers (displayed on top layer) */}
+				{/* Chapter markers */}
 				<div className="absolute top-0 left-0 w-full h-full pointer-events-none">
 					<div className="relative w-full h-full">
 						{chapters.map((chapter) => (

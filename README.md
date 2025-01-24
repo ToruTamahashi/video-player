@@ -61,26 +61,37 @@ Note: TailwindCSS is an optional peer dependency. You can use the default styles
 import { VideoPlayer, Controls, VideoPlayerRefType } from '@torutamahashi/video-player';
 
 function App() {
-  const playerRef = useRef<VideoPlayerRefType>(null);
-  return (
-    <VideoPlayer ref={playerRef} src="path/to/video.mp4">
-      {({ videoRef, state, controls }) => (
-        <>
-          <Controls
-            videoRef={videoRef}
-            isPlaying={state.isPlaying}
-            currentTime={state.currentTime}
-            duration={state.duration}
-            volume={state.volume}
-            onPlay={controls.play}
-            onPause={controls.pause}
-            onSeek={controls.seek}
-            onVolumeChange={controls.setVolume}
-          />
-        </>
-      )}
-    </VideoPlayer>
-  );
+	const playerRef = useRef<VideoPlayerRefType>(null);
+	return (
+		<VideoPlayer ref={playerRef} src="path/to/video.mp4">
+			{({ videoRef, state, controls }) => (
+				<>
+					<ControlsWrapper>
+						<ProgressBar
+							currentTime={state.currentTime}
+							duration={state.duration}
+							chapters={chapters}
+							onSeek={controls.seek}
+							height="sm"
+							progressColor="#DC2626"
+							videoRef={videoRef}
+						/>
+						<Controls
+							videoRef={videoRef}
+							isPlaying={state.isPlaying}
+							currentTime={state.currentTime}
+							duration={state.duration}
+							volume={state.volume}
+							onPlay={controls.play}
+							onPause={controls.pause}
+							onSeek={controls.seek}
+							onVolumeChange={controls.setVolume}
+						/>
+					</ControlsWrapper>
+				</>
+			)}
+		</VideoPlayer>
+	);
 }
 ```
 
@@ -118,14 +129,7 @@ const chapters = parseVTT(vttContent);
 
 ```tsx
 <VideoPlayer src="video.mp4">
-  {({ videoRef, state, controls }) => (
-    <Controls
-      videoRef={videoRef}
-      {...state}
-      {...controls}
-      chapters={chapters}
-    />
-  )}
+	{({ videoRef, state, controls }) => <Controls videoRef={videoRef} {...state} {...controls} chapters={chapters} />}
 </VideoPlayer>
 ```
 
@@ -137,37 +141,15 @@ You can provide your own icons (default icons are included):
 
 ```tsx
 const customIcons = {
-  Play: ({ className }) => <YourPlayIcon className={className} />,
-  Pause: ({ className }) => <YourPauseIcon className={className} />,
-  VolumeHigh: ({ className }) => <YourVolumeHighIcon className={className} />,
-  VolumeMedium: ({ className }) => <YourVolumeMediumIcon className={className} />,
-  VolumeLow: ({ className }) => <YourVolumeLowIcon className={className} />,
-  VolumeX: ({ className }) => <YourVolumeXIcon className={className} />
+	Play: ({ className }) => <YourPlayIcon className={className} />,
+	Pause: ({ className }) => <YourPauseIcon className={className} />,
+	VolumeHigh: ({ className }) => <YourVolumeHighIcon className={className} />,
+	VolumeMedium: ({ className }) => <YourVolumeMediumIcon className={className} />,
+	VolumeLow: ({ className }) => <YourVolumeLowIcon className={className} />,
+	VolumeX: ({ className }) => <YourVolumeXIcon className={className} />,
 };
 
-<Controls {...props} customIcons={customIcons} />
-```
-
-### Styles
-
-Customize using TailwindCSS utility classes:
-
-```tsx
-<VideoPlayer className="rounded-lg overflow-hidden">
-  {({ videoRef, state, controls }) => (
-    <>
-      <Subtitles
-        className="mb-4 text-lg font-bold"
-        // ...
-      />
-      <Controls
-        className="bg-black/70 p-3"
-        progressBarClassName="h-2"
-        // ...
-      />
-    </>
-  )}
-</VideoPlayer>
+<Controls {...props} customIcons={customIcons} />;
 ```
 
 ## TypeScript Support
@@ -175,24 +157,24 @@ Customize using TailwindCSS utility classes:
 The library includes comprehensive type definitions:
 
 ```typescript
-import type { 
-  VideoPlayerRefType, 
-  VideoPlayerPropsType,
-  ChapterType, 
-  SubtitleType,
-  WebVTTType
+import type {
+	VideoPlayerRefType,
+	VideoPlayerPropsType,
+	ChapterType,
+	SubtitleType,
+	WebVTTType,
 } from '@torutamahashi/video-player';
 
 const chapters: Chapter[] = [
-  {
-    startTime: 0,
-    endTime: 150,
-    title: "Introduction"
-  }
+	{
+		startTime: 0,
+		endTime: 150,
+		title: 'Introduction',
+	},
 ];
 ```
-for now WebVTTType = SubtitleType = ChapterType
 
+for now WebVTTType = SubtitleType = ChapterType
 
 ## Contributing
 
@@ -210,8 +192,6 @@ We'd love to hear your thoughts, suggestions, or any issues you encounter while 
 
 - **Quick Feedback**  
   If you prefer, fill out this [short feedback form](https://docs.google.com/forms/d/e/1FAIpQLSe2U4hTRGFkOe4aBmHBjLbmtoU2yTWc5vTP-NsfVZCXyxBg5Q/viewform?usp=header).
-
-
 
 ## License
 

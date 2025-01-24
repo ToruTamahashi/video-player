@@ -53,14 +53,10 @@ export interface ControlsPropsType {
 	currentTime: number;
 	duration: number;
 	volume: number;
-	chapters?: ChapterType[];
-	videoRef: React.RefObject<HTMLVideoElement>;
 	onPlay: () => void;
 	onPause: () => void;
-	onSeek: (time: number) => void;
 	onVolumeChange: (volume: number) => void;
 	className?: string;
-	progressBarClassName?: string;
 	children?: React.ReactNode;
 	customIcons?: CustomIconsType;
 }
