@@ -7,7 +7,7 @@ import { VideoPlayer } from '../../components/VideoPlayer/VideoPlayer';
 import { Subtitles } from '../../components/VideoPlayer/Subtitles';
 import { Controls } from '../../components/VideoPlayer/Controls';
 import { ControlsWrapper } from '../../components/VideoPlayer/wrappers/ControlsWrapper';
-import ProgressBar from '../../components/VideoPlayer/ProgressBar';
+import { ProgressBar } from '../../components/VideoPlayer/ProgressBar';
 
 export const App: React.FC = () => {
 	const [videoSrc, setVideoSrc] = useState<string>();
