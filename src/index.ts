@@ -12,5 +12,6 @@ export type {
 	ChapterType,
 	VideoPlayerStateType,
 	VideoPlayerControlsType,
+	VideoPlayerCallbacks,
 } from './components/VideoPlayer/types';
 export { parseVTT } from './utils/vttParser';

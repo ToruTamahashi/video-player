@@ -1,13 +1,8 @@
 // hooks/useVideoPlayer.ts
 import { useRef, useState, useCallback } from 'react';
-import { VideoPlayerRefType } from '../types';
+import { VideoPlayerCallbacks, VideoPlayerRefType } from '../types';
 
-type VideoPlayerCallbacks = {
-	onTimeUpdate?: (currentTime: number) => void;
-	onLoadedMetadata?: (duration: number) => void;
-	onPlay?: () => void;
-	onPause?: () => void;
-};
+
 
 export const useVideoPlayer = (callbacks?: VideoPlayerCallbacks) => {
 	const playerRef = useRef<VideoPlayerRefType>(null);

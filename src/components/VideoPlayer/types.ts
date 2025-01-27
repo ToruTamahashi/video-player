@@ -72,3 +72,10 @@ export interface CustomIconsType {
 	VolumeLow?: ComponentType<{ className?: string }>;
 	VolumeMute?: ComponentType<{ className?: string }>;
 }
+
+export type VideoPlayerCallbacks = {
+	onTimeUpdate?: (currentTime: number) => void;
+	onLoadedMetadata?: (duration: number) => void;
+	onPlay?: () => void;
+	onPause?: () => void;
+};
