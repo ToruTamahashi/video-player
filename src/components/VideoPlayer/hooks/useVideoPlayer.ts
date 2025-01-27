@@ -14,6 +14,8 @@ export const useVideoPlayer = (callbacks?: VideoPlayerCallbacks) => {
 	const [chapters, setChapters] = useState<ChapterType[]>([]);
 	const [subtitles, setSubtitles] = useState<SubtitleType[]>([]);
 
+	const [currentChapter, setCurrentChapter] = useState<ChapterType | null>(null);
+
 	// Internal handlers
 	const handleLoadedMetadata = useCallback(
 		(duration: number) => {
@@ -26,6 +28,11 @@ export const useVideoPlayer = (callbacks?: VideoPlayerCallbacks) => {
 	const handleTimeUpdate = useCallback(
 		(time: number) => {
 			setCurrentTime(time);
+			// check current chapter
+			const chapter = chapters.find((c) => c.startTime <= time && c.endTime >= time);
+			if (chapter && chapter !== currentChapter) {
+				setCurrentChapter(chapter);
+			}
 			callbacks?.onTimeUpdate?.(time);
 		},
 		[callbacks]
@@ -78,6 +85,7 @@ export const useVideoPlayer = (callbacks?: VideoPlayerCallbacks) => {
 			volume,
 			subtitles,
 			chapters,
+			currentChapter,
 		},
 		controls: {
 			play,
@@ -85,7 +93,7 @@ export const useVideoPlayer = (callbacks?: VideoPlayerCallbacks) => {
 			seek,
 			setVolume: setVideoVolume,
 			setSubtitles,
-			setChapters
+			setChapters,
 		},
 		videoRef,
 		videoPlayerProps,

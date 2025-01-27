@@ -140,11 +140,27 @@ export const App: React.FC = () => {
 									<button
 										key={chapter.startTime}
 										onClick={() => controls.seek(chapter.startTime)}
-										className="w-full px-4 py-2 text-left hover:bg-gray-50 focus:outline-none focus:bg-gray-50"
+										className={`w-full px-4 py-2 text-left focus:outline-none ${
+											chapter.index === state.currentChapter?.index
+												? 'bg-gray-700 text-white hover:bg-gray-600 focus:bg-gray-600'
+												: 'hover:bg-gray-50 focus:bg-gray-50'
+										}`}
 									>
-										<div className="font-medium text-gray-900">{chapter.text}</div>
-										<div className="text-sm text-gray-500 tabular-nums">
-											{new Date(chapter.startTime * 1000).toISOString().substr(11, 8)}
+										<div
+											className={`font-medium ${
+												chapter.index === state.currentChapter?.index ? 'text-white' : 'text-gray-900'
+											}`}
+										>
+											{chapter.text}
+										</div>
+										<div
+											className={`text-sm tabular-nums ${
+												chapter.index === state.currentChapter?.index ? 'text-zinc-300' : 'text-zinc-500'
+											}`}
+										>
+											<span>{new Date(chapter.startTime * 1000).toISOString().substr(11, 8)}</span>
+											<span className="mx-1">-</span>
+											<span>{new Date(chapter.endTime * 1000).toISOString().substr(11, 8)}</span>
 										</div>
 									</button>
 								))}
