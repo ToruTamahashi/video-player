@@ -29,7 +29,7 @@ export const useVideoPlayer = (callbacks?: VideoPlayerCallbacks) => {
 		(time: number) => {
 			setCurrentTime(time);
 			// check current chapter
-			const chapter = chapters.find((c) => c.startTime <= time && c.endTime >= time);
+			const chapter = chapters.find((c) => c.startTime <= time && c.endTime > time);
 			if (chapter && chapter !== currentChapter) {
 				setCurrentChapter(chapter);
 			}
