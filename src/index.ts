@@ -4,6 +4,7 @@ export { Controls } from './components/VideoPlayer/Controls';
 export { Subtitles } from './components/VideoPlayer/Subtitles';
 export { ControlsWrapper } from './components/VideoPlayer/wrappers/ControlsWrapper';
 export { ProgressBar } from './components/VideoPlayer/ProgressBar';
+export { useVideoPlayer } from './components/VideoPlayer/hooks/useVideoPlayer';
 export type {
 	VideoPlayerRefType,
 	VideoPlayerPropsType,
