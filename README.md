@@ -2,7 +2,7 @@
 
 A highly customizable React video player component with chapter markers, subtitles, and thumbnail preview functionality.
 
-[Demo](https://stackblitz.com/edit/vitejs-vite-sofwrgiu?file=src%2FApp.tsx)
+[Demo](https://stackblitz.com/edit/vitejs-vite-huml8hkv?file=src%2FApp.tsx)
 
 ![movie](docs/demo.gif)
 
@@ -122,7 +122,7 @@ const chapters = parseVTT(vttContent);
 
 ### Using Chapters in Component
 
-see [Demo](https://stackblitz.com/edit/vitejs-vite-sofwrgiu?file=src%2FApp.tsx)
+see [Demo](https://stackblitz.com/edit/vitejs-vite-huml8hkv?file=src%2FApp.tsx)
 
 
 ### Icons
