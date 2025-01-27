@@ -1,27 +1,30 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 
-import { Play, Pause, Volume2, Volume1, Volume, VolumeX } from 'lucide-react';
-import { ChapterType, SubtitleType, VideoPlayerRefType } from '../../components/VideoPlayer/types';
+import { Play, Pause, Volume2, Volume1, Volume, VolumeX, Settings } from 'lucide-react';
+import { ChapterType, SubtitleType } from '../../components/VideoPlayer/types';
 import { parseVTT } from '../../utils/vttParser';
 import { VideoPlayer } from '../../components/VideoPlayer/VideoPlayer';
 import { Subtitles } from '../../components/VideoPlayer/Subtitles';
 import { Controls } from '../../components/VideoPlayer/Controls';
 import { ControlsWrapper } from '../../components/VideoPlayer/wrappers/ControlsWrapper';
 import { ProgressBar } from '../../components/VideoPlayer/ProgressBar';
+import { useVideoPlayer } from '../../components/VideoPlayer/hooks/useVideoPlayer';
 
 export const App: React.FC = () => {
-	const [videoSrc, setVideoSrc] = useState<string>();
 	const [chapters, setChapters] = useState<ChapterType[]>([]);
 	const [subtitles, setSubtitles] = useState<SubtitleType[]>([]);
-	const playerRef = useRef<VideoPlayerRefType>(null);
 
-	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const file = e.target.files?.[0];
-		if (file) {
-			const url = URL.createObjectURL(file);
-			setVideoSrc(url);
-		}
-	};
+	const [currentTime, setCurrentTime] = useState(0);
+
+	const { videoRef, state, controls, videoPlayerProps } = useVideoPlayer({
+		onTimeUpdate: (time) => {
+			console.log('Current time:', time);
+			setCurrentTime(time);
+		},
+		onLoadedMetadata: (duration) => {
+			console.log('Video is loaded, total duration is:', duration);
+		},
+	});
 
 	const handleChapterFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
@@ -51,10 +54,6 @@ export const App: React.FC = () => {
 		}
 	};
 
-	const handleChapterClick = (startTime: number) => {
-		playerRef.current?.seek(startTime);
-	};
-
 	const customIcons = {
 		Play: ({ className }: { className?: string }) => <Play className={className} />,
 		Pause: ({ className }: { className?: string }) => <Pause className={className} />,
@@ -67,16 +66,6 @@ export const App: React.FC = () => {
 	return (
 		<div className="max-w-4xl mx-auto p-4">
 			<div className="space-y-4 mb-4">
-				<div>
-					<label className="block text-sm font-medium text-gray-700 mb-1">Video File</label>
-					<input
-						type="file"
-						accept="video/*"
-						onChange={handleFileChange}
-						className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"
-					/>
-				</div>
-
 				<div>
 					<label className="block text-sm font-medium text-gray-700 mb-1">Subtitle File (WebVTT)</label>
 					<input
@@ -100,47 +89,50 @@ export const App: React.FC = () => {
 
 			<div className="grid grid-cols-1 md:grid-cols-4 gap-4">
 				<div className="md:col-span-3">
-					{videoSrc && (
-						<VideoPlayer ref={playerRef} src={videoSrc} className="rounded-lg overflow-hidden ">
-							{({ videoRef, state, controls }) => (
-								<>
-									<Subtitles subtitles={subtitles} currentTime={state.currentTime} className="mb-4 text-lg" />
-									<ControlsWrapper className='bg-red-400'>
-										<ProgressBar
-											currentTime={state.currentTime}
-											duration={state.duration}
-											chapters={chapters}
-											onSeek={controls.seek}
-											height="sm"
-											progressColor="#DC2626"
-											videoRef={videoRef}
-										/>
-										<Controls
-											isPlaying={state.isPlaying}
-											currentTime={state.currentTime}
-											duration={state.duration}
-											volume={state.volume}
-											onPlay={controls.play}
-											onPause={controls.pause}
-											onVolumeChange={controls.setVolume}
-											className="bg-black/70 p-3"
-											customIcons={customIcons}
-										>
-											{/* <div className="flex justify-between">
-												<button
-													className=" text-white text-sm px-3 py-1 rounded bg-violet-600 hover:bg-violet-700"
-													onClick={() => controls.seek(0)}
-												>
-													Restart
-												</button>
-												<Settings className="text-white" />
-											</div> */}
-										</Controls>
-									</ControlsWrapper>
-								</>
-							)}
-						</VideoPlayer>
-					)}
+					<VideoPlayer
+						{...videoPlayerProps}
+						src={
+							'https://raw.githubusercontent.com/mdn/learning-area/main/javascript/apis/video-audio/finished/video/sintel-short.mp4'
+						}
+						className="rounded-lg overflow-hidden "
+					>
+						<Subtitles subtitles={subtitles} currentTime={state.currentTime} className="mb-4 text-lg" />
+						<ControlsWrapper className="bg-black/70">
+							<ProgressBar
+								currentTime={state.currentTime}
+								duration={state.duration}
+								chapters={chapters}
+								onSeek={controls.seek}
+								height="sm"
+								progressColor="#DC2626"
+								videoRef={videoRef}
+							/>
+							<Controls
+								isPlaying={state.isPlaying}
+								currentTime={state.currentTime}
+								duration={state.duration}
+								volume={state.volume}
+								onPlay={controls.play}
+								onPause={controls.pause}
+								onVolumeChange={controls.setVolume}
+								className="bg-black/70 p-3"
+								customIcons={customIcons}
+							>
+								<div className="flex justify-between">
+									<button
+										className=" text-white text-sm px-3 py-1 rounded bg-violet-600 hover:bg-violet-700"
+										onClick={() => controls.seek(0)}
+									>
+										Restart
+									</button>
+									<Settings className="text-white" />
+								</div>
+							</Controls>
+						</ControlsWrapper>
+					</VideoPlayer>
+
+					<div>current time(s): {currentTime}</div>
+					<div>total duration(s): {state.duration}</div>
 				</div>
 
 				{chapters.length > 0 && (
@@ -153,7 +145,7 @@ export const App: React.FC = () => {
 								{chapters.map((chapter) => (
 									<button
 										key={chapter.startTime}
-										onClick={() => handleChapterClick(chapter.startTime)}
+										onClick={() => controls.seek(chapter.startTime)}
 										className="w-full px-4 py-2 text-left hover:bg-gray-50 focus:outline-none focus:bg-gray-50"
 									>
 										<div className="font-medium text-gray-900">{chapter.text}</div>

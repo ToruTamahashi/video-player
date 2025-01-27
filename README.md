@@ -58,38 +58,33 @@ Note: TailwindCSS is an optional peer dependency. You can use the default styles
 ## Basic Usage
 
 ```tsx
-import { VideoPlayer, Controls, VideoPlayerRefType } from '@torutamahashi/video-player';
+import { VideoPlayer, Controls, useVideoPlayer } from '@torutamahashi/video-player';
 
 function App() {
-	const playerRef = useRef<VideoPlayerRefType>(null);
+	const { videoRef, state, controls, videoPlayerProps } = useVideoPlayer()
 	return (
-		<VideoPlayer ref={playerRef} src="path/to/video.mp4">
-			{({ videoRef, state, controls }) => (
-				<>
-					<ControlsWrapper>
-						<ProgressBar
-							currentTime={state.currentTime}
-							duration={state.duration}
-							chapters={chapters}
-							onSeek={controls.seek}
-							height="sm"
-							progressColor="#DC2626"
-							videoRef={videoRef}
-						/>
-						<Controls
-							videoRef={videoRef}
-							isPlaying={state.isPlaying}
-							currentTime={state.currentTime}
-							duration={state.duration}
-							volume={state.volume}
-							onPlay={controls.play}
-							onPause={controls.pause}
-							onSeek={controls.seek}
-							onVolumeChange={controls.setVolume}
-						/>
-					</ControlsWrapper>
-				</>
-			)}
+		<VideoPlayer {...videoPlayerProps} src="path/to/video.mp4">
+			<ControlsWrapper>
+				<ProgressBar
+					currentTime={state.currentTime}
+					duration={state.duration}
+					onSeek={controls.seek}
+					height="sm"
+					progressColor="#DC2626"
+					videoRef={videoRef}
+				/>
+				<Controls
+					videoRef={videoRef}
+					isPlaying={state.isPlaying}
+					currentTime={state.currentTime}
+					duration={state.duration}
+					volume={state.volume}
+					onPlay={controls.play}
+					onPause={controls.pause}
+					onSeek={controls.seek}
+					onVolumeChange={controls.setVolume}
+				/>
+			</ControlsWrapper>
 		</VideoPlayer>
 	);
 }
@@ -127,13 +122,8 @@ const chapters = parseVTT(vttContent);
 
 ### Using Chapters in Component
 
-```tsx
-<VideoPlayer src="video.mp4">
-	{({ videoRef, state, controls }) => <Controls videoRef={videoRef} {...state} {...controls} chapters={chapters} />}
-</VideoPlayer>
-```
+see [Demo](https://stackblitz.com/edit/vitejs-vite-sofwrgiu?file=src%2FApp.tsx)
 
-## Customization
 
 ### Icons
 

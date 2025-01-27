@@ -35,9 +35,11 @@ export interface VideoPlayerPropsType {
 	src?: string;
 	className?: string;
 	onTimeUpdate?: (currentTime: number) => void;
+	onLoadedMetadata?: (duration: number) => void;
 	onPlay?: () => void;
 	onPause?: () => void;
-	children?: (props: VideoPlayerRenderPropsType) => ReactNode;
+	children?: ReactNode;
+	videoRef: React.RefObject<HTMLVideoElement>;
 }
 
 export interface VideoPlayerRefType {
@@ -46,6 +48,7 @@ export interface VideoPlayerRefType {
 	getCurrentTime: () => number;
 	getDuration: () => number;
 	seek: (time: number) => void;
+	setVolume: (newVolume: number) => void;
 }
 
 export interface ControlsPropsType {

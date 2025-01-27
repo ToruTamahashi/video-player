@@ -16,6 +16,7 @@ interface ProgressBarPropsType {
 	height?: HeightOption;
 	baseColor?: string;
 	progressColor?: string;
+	thumbnailPreviewClassName?: string;
 }
 
 const POPUP_PADDING = 8; // Padding for the popup
@@ -36,6 +37,7 @@ const ProgressBar: React.FC<ProgressBarPropsType> = ({
 	height = 'sm',
 	baseColor = '#4B5563',
 	progressColor = '#DC2626',
+	thumbnailPreviewClassName = '',
 }) => {
 	const progressRef = useRef<HTMLDivElement>(null);
 	const previewRef = useRef<HTMLDivElement>(null);
@@ -130,7 +132,7 @@ const ProgressBar: React.FC<ProgressBarPropsType> = ({
 			{/* Preview popup */}
 			{isHovering && previewInfo && (
 				<div ref={previewRef} className="absolute bottom-4 bg-black rounded p-1 z-20" style={previewStyle}>
-					<ThumbnailPreview videoRef={videoRef} time={previewInfo.time} className="rounded mb-1" />
+					<ThumbnailPreview videoRef={videoRef} time={previewInfo.time} className={`rounded mb-1 ${thumbnailPreviewClassName}`} />
 					<div className="text-white text-xs text-center tabular-nums font-mono w-16">{previewTimeFormatted}</div>
 				</div>
 			)}

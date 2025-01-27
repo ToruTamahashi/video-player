@@ -1,13 +1,9 @@
-import { forwardRef, useRef, useImperativeHandle, useState } from 'react';
+import { forwardRef, useImperativeHandle } from 'react';
 import { VideoPlayerPropsType, VideoPlayerRefType } from './types';
 
 export const VideoPlayer = forwardRef<VideoPlayerRefType, VideoPlayerPropsType>(
-	({ src, className = '', onTimeUpdate, onPlay, onPause, children }, ref) => {
-		const videoRef = useRef<HTMLVideoElement>(null);
-		const [isPlaying, setIsPlaying] = useState(false);
-		const [currentTime, setCurrentTime] = useState(0);
-		const [duration, setDuration] = useState(0);
-		const [volume, setVolume] = useState(1);
+	({ src, className = '', videoRef, onTimeUpdate, onLoadedMetadata, onPlay, onPause, children }, ref) => {
+		// const videoRef = useRef<HTMLVideoElement>(null);
 
 		useImperativeHandle(ref, () => ({
 			play: () => videoRef.current?.play(),
@@ -19,39 +15,35 @@ export const VideoPlayer = forwardRef<VideoPlayerRefType, VideoPlayerPropsType>(
 					videoRef.current.currentTime = time;
 				}
 			},
+			setVolume: (newVolume: number) => {
+				if (videoRef.current) {
+					videoRef.current.volume = newVolume;
+				}
+			},
 		}));
 
 		const handleTimeUpdate = () => {
 			if (videoRef.current) {
-				setCurrentTime(videoRef.current.currentTime);
 				onTimeUpdate?.(videoRef.current.currentTime);
 			}
 		};
 
 		const handleLoadedMetadata = () => {
 			if (videoRef.current) {
-				setDuration(videoRef.current.duration);
-				setVolume(videoRef.current.volume);
 				handlePause();
+				onLoadedMetadata?.(videoRef.current.duration);
 			}
 		};
 
 		const handlePlay = () => {
-			setIsPlaying(true);
 			onPlay?.();
 		};
 
 		const handlePause = () => {
-			setIsPlaying(false);
 			onPause?.();
 		};
 
-		const handleVolumeChange = (newVolume: number) => {
-			if (videoRef.current) {
-				videoRef.current.volume = newVolume;
-				setVolume(newVolume);
-			}
-		};
+		
 
 		return (
 			<div className={`relative w-full aspect-video bg-black ${className}`}>
@@ -64,25 +56,7 @@ export const VideoPlayer = forwardRef<VideoPlayerRefType, VideoPlayerPropsType>(
 					onPause={handlePause}
 					src={src}
 				/>
-				{children?.({
-					videoRef,
-					state: {
-						isPlaying,
-						currentTime,
-						duration,
-						volume,
-					},
-					controls: {
-						play: () => videoRef.current?.play(),
-						pause: () => videoRef.current?.pause(),
-						seek: (time) => {
-							if (videoRef.current) {
-								videoRef.current.currentTime = time;
-							}
-						},
-						setVolume: handleVolumeChange,
-					},
-				})}
+				{children}
 			</div>
 		);
 	}
