@@ -55,6 +55,7 @@ export const VideoPlayer = forwardRef<VideoPlayerRefType, VideoPlayerPropsType>(
 					onPlay={handlePlay}
 					onPause={handlePause}
 					src={src}
+					crossOrigin="anonymous"
 				/>
 				{children}
 			</div>

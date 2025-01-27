@@ -132,7 +132,11 @@ const ProgressBar: React.FC<ProgressBarPropsType> = ({
 			{/* Preview popup */}
 			{isHovering && previewInfo && (
 				<div ref={previewRef} className="absolute bottom-4 bg-black rounded p-1 z-20" style={previewStyle}>
-					<ThumbnailPreview videoRef={videoRef} time={previewInfo.time} className={`rounded mb-1 ${thumbnailPreviewClassName}`} />
+					<ThumbnailPreview
+						videoRef={videoRef}
+						time={previewInfo.time}
+						className={`rounded mb-1 ${thumbnailPreviewClassName}`}
+					/>
 					<div className="text-white text-xs text-center tabular-nums font-mono w-16">{previewTimeFormatted}</div>
 				</div>
 			)}
@@ -179,4 +183,4 @@ const ProgressBar: React.FC<ProgressBarPropsType> = ({
 	);
 };
 
-export default ProgressBar;
+export { ProgressBar };

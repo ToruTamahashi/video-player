@@ -18,6 +18,7 @@ const useThumbnailCache = (videoRef: React.RefObject<HTMLVideoElement>) => {
 		clonedVideo.src = videoRef.current.src;
 		clonedVideo.preload = 'metadata';
 		clonedVideo.style.display = 'none';
+		clonedVideo.crossOrigin = 'anonymous';
 		document.body.appendChild(clonedVideo);
 		setVideoClone(clonedVideo);
 

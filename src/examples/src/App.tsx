@@ -14,12 +14,10 @@ export const App: React.FC = () => {
 	const [chapters, setChapters] = useState<ChapterType[]>([]);
 	const [subtitles, setSubtitles] = useState<SubtitleType[]>([]);
 
-	const [currentTime, setCurrentTime] = useState(0);
 
 	const { videoRef, state, controls, videoPlayerProps } = useVideoPlayer({
 		onTimeUpdate: (time) => {
 			console.log('Current time:', time);
-			setCurrentTime(time);
 		},
 		onLoadedMetadata: (duration) => {
 			console.log('Video is loaded, total duration is:', duration);
@@ -131,7 +129,7 @@ export const App: React.FC = () => {
 						</ControlsWrapper>
 					</VideoPlayer>
 
-					<div>current time(s): {currentTime}</div>
+					<div>current time(s): {state.currentTime}</div>
 					<div>total duration(s): {state.duration}</div>
 				</div>
 
