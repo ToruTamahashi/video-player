@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Play, Pause, Volume2, Volume1, Volume, VolumeX, Settings } from 'lucide-react';
-import { ChapterType, SubtitleType } from '../../components/VideoPlayer/types';
+
 import { parseVTT } from '../../utils/vttParser';
 import { VideoPlayer } from '../../components/VideoPlayer/VideoPlayer';
 import { Subtitles } from '../../components/VideoPlayer/Subtitles';
@@ -11,10 +11,6 @@ import { ProgressBar } from '../../components/VideoPlayer/ProgressBar';
 import { useVideoPlayer } from '../../components/VideoPlayer/hooks/useVideoPlayer';
 
 export const App: React.FC = () => {
-	const [chapters, setChapters] = useState<ChapterType[]>([]);
-	const [subtitles, setSubtitles] = useState<SubtitleType[]>([]);
-
-
 	const { videoRef, state, controls, videoPlayerProps } = useVideoPlayer({
 		onTimeUpdate: (time) => {
 			console.log('Current time:', time);
@@ -30,7 +26,7 @@ export const App: React.FC = () => {
 			try {
 				const text = await file.text();
 				const parsedChapters = parseVTT(text);
-				setChapters(parsedChapters);
+				controls.setChapters(parsedChapters);
 			} catch (error) {
 				console.error('Failed to parse chapter file:', error);
 				alert('Failed to parse chapter file. Please ensure it is a valid WebVTT file.');
@@ -44,7 +40,7 @@ export const App: React.FC = () => {
 			try {
 				const text = await file.text();
 				const parsedSubtitles = parseVTT(text);
-				setSubtitles(parsedSubtitles);
+				controls.setSubtitles(parsedSubtitles);
 			} catch (error) {
 				console.error('Failed to parse subtitle file:', error);
 				alert('Failed to parse subtitle file. Please ensure it is a valid WebVTT file.');
@@ -94,12 +90,12 @@ export const App: React.FC = () => {
 						}
 						className="rounded-lg overflow-hidden "
 					>
-						<Subtitles subtitles={subtitles} currentTime={state.currentTime} className="mb-4 text-lg" />
+						<Subtitles subtitles={state.subtitles} currentTime={state.currentTime} className="mb-4 text-lg" />
 						<ControlsWrapper className="bg-black/70">
 							<ProgressBar
 								currentTime={state.currentTime}
 								duration={state.duration}
-								chapters={chapters}
+								chapters={state.chapters}
 								onSeek={controls.seek}
 								height="sm"
 								progressColor="#DC2626"
@@ -133,14 +129,14 @@ export const App: React.FC = () => {
 					<div>total duration(s): {state.duration}</div>
 				</div>
 
-				{chapters.length > 0 && (
+				{state.chapters.length > 0 && (
 					<div className="md:col-span-1">
 						<div className="bg-white rounded-lg shadow overflow-hidden">
 							<div className="bg-violet-50 px-4 py-2 border-b border-violet-100">
 								<h2 className="text-violet-900 font-medium">Chapters</h2>
 							</div>
 							<div className="divide-y divide-gray-200 max-h-[600px] overflow-y-auto">
-								{chapters.map((chapter) => (
+								{state.chapters.map((chapter) => (
 									<button
 										key={chapter.startTime}
 										onClick={() => controls.seek(chapter.startTime)}

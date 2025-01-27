@@ -1,8 +1,6 @@
 // hooks/useVideoPlayer.ts
 import { useRef, useState, useCallback } from 'react';
-import { VideoPlayerCallbacks, VideoPlayerRefType } from '../types';
-
-
+import { ChapterType, SubtitleType, VideoPlayerCallbacks, VideoPlayerRefType } from '../types';
 
 export const useVideoPlayer = (callbacks?: VideoPlayerCallbacks) => {
 	const playerRef = useRef<VideoPlayerRefType>(null);
@@ -12,6 +10,9 @@ export const useVideoPlayer = (callbacks?: VideoPlayerCallbacks) => {
 	const [duration, setDuration] = useState(0);
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [volume, setVolume] = useState(1);
+
+	const [chapters, setChapters] = useState<ChapterType[]>([]);
+	const [subtitles, setSubtitles] = useState<SubtitleType[]>([]);
 
 	// Internal handlers
 	const handleLoadedMetadata = useCallback(
@@ -75,12 +76,16 @@ export const useVideoPlayer = (callbacks?: VideoPlayerCallbacks) => {
 			duration,
 			isPlaying,
 			volume,
+			subtitles,
+			chapters,
 		},
 		controls: {
 			play,
 			pause,
 			seek,
 			setVolume: setVideoVolume,
+			setSubtitles,
+			setChapters
 		},
 		videoRef,
 		videoPlayerProps,
