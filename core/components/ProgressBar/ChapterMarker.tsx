@@ -1,6 +1,6 @@
 import React from 'react';
-import { ChapterType } from '../types';
-import { formatTimePair } from '../../../utils/time';
+import { ChapterType } from '../../types';
+import { formatTimePair } from '../../utils/time';
 
 interface ChapterMarkerPropsType {
 	chapter: ChapterType;
@@ -13,7 +13,7 @@ export const ChapterMarker: React.FC<ChapterMarkerPropsType> = ({ chapter, durat
 
 	return (
 		<div
-			className="absolute top-0 w-0.5 h-full bg-white/50 transform -translate-x-1/2 hover:bg-yellow-400 transition-colors pointer-events-auto cursor-pointer"
+			className="tvp-absolute tvp-top-0 tvp-w-0.5 tvp-h-full tvp-bg-white/50 tvp-transform tvp--translate-x-1/2 hover:tvp-bg-yellow-400 tvp-transition-colors tvp-pointer-events-auto tvp-cursor-pointer"
 			style={{ left: `${position}%` }}
 			title={`${chapter.text} (${formattedTime})`}
 		/>

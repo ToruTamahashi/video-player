@@ -8,14 +8,14 @@ export default defineConfig({
 	plugins: [
 		react(),
 		dts({
-			include: ['src'],
+			include: ['core'],
 			insertTypesEntry: true,
 		}),
 	],
 
 	build: {
 		lib: {
-			entry: path.resolve(__dirname, 'src/index.ts'),
+			entry: path.resolve(__dirname, 'core/index.ts'),
 			name: '@torutamahashi/video-player',
 			formats: ['es', 'cjs'],
 			fileName: (format) => `index.${format === 'es' ? 'mjs' : 'cjs'}`,

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { SubtitleType } from './types';
+import { SubtitleType } from '../types';
 
 interface SubtitlesPropsType {
 	subtitles?: SubtitleType[];
@@ -17,8 +17,10 @@ export const Subtitles: React.FC<SubtitlesPropsType> = ({ subtitles = [], curren
 	}
 
 	return (
-		<div className={`absolute left-0 right-0 bottom-16 text-center ${className}`}>
-			<div className="inline-block bg-black/70 px-4 py-2 rounded-lg text-white">{currentSubtitle.text}</div>
+		<div className={`tvp-absolute tvp-left-0 tvp-right-0 tvp-bottom-16 tvp-text-center ${className}`}>
+			<div className="tvp-inline-block tvp-bg-black/70 tvp-px-4 tvp-py-2 tvp-rounded-lg tvp-text-white">
+				{currentSubtitle.text}
+			</div>
 		</div>
 	);
 };

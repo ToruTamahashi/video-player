@@ -1,14 +1,5 @@
+import { Controls, ControlsWrapper, parseVTT, Subtitles, VideoPlayer, ProgressBar, useVideoPlayer } from '../../core';
 import React from 'react';
-
-import { Play, Pause, Volume2, Volume1, Volume, VolumeX, Settings } from 'lucide-react';
-
-import { parseVTT } from '../../utils/vttParser';
-import { VideoPlayer } from '../../components/VideoPlayer/VideoPlayer';
-import { Subtitles } from '../../components/VideoPlayer/Subtitles';
-import { Controls } from '../../components/VideoPlayer/Controls';
-import { ControlsWrapper } from '../../components/VideoPlayer/wrappers/ControlsWrapper';
-import { ProgressBar } from '../../components/VideoPlayer/ProgressBar';
-import { useVideoPlayer } from '../../components/VideoPlayer/hooks/useVideoPlayer';
 
 export const App: React.FC = () => {
 	const { videoRef, state, controls, videoPlayerProps } = useVideoPlayer({
@@ -48,18 +39,68 @@ export const App: React.FC = () => {
 		}
 	};
 
-	const customIcons = {
-		Play: ({ className }: { className?: string }) => <Play className={className} />,
-		Pause: ({ className }: { className?: string }) => <Pause className={className} />,
-		VolumeHigh: ({ className }: { className?: string }) => <Volume2 className={className} />,
-		VolumeMedium: ({ className }: { className?: string }) => <Volume1 className={className} />,
-		VolumeLow: ({ className }: { className?: string }) => <Volume className={className} />,
-		VolumeMute: ({ className }: { className?: string }) => <VolumeX className={className} />,
+	const handleDownloadSubtitle = async () => {
+		try {
+			const response = await fetch('/trailer_subtitles.vtt');
+			if (!response.ok) throw new Error('Failed to fetch subtitles.vtt');
+
+			const blob = await response.blob();
+			const url = window.URL.createObjectURL(blob);
+
+			const a = document.createElement('a');
+			a.href = url;
+			a.download = 'sample_subtitles.vtt';
+			document.body.appendChild(a);
+			a.click();
+
+			// Clean up
+			document.body.removeChild(a);
+			window.URL.revokeObjectURL(url);
+		} catch (error) {
+			console.error('Download failed:', error);
+			alert('Failed to download subtitles.vtt');
+		}
+	};
+
+	const handleDownloadChapter = async () => {
+		try {
+			const response = await fetch('/trailer_chapters.vtt');
+			if (!response.ok) throw new Error('Failed to fetch chapters.vtt');
+
+			const blob = await response.blob();
+			const url = window.URL.createObjectURL(blob);
+
+			const a = document.createElement('a');
+			a.href = url;
+			a.download = 'sample_chapters.vtt';
+			document.body.appendChild(a);
+			a.click();
+
+			// Clean up
+			document.body.removeChild(a);
+			window.URL.revokeObjectURL(url);
+		} catch (error) {
+			console.error('Download failed:', error);
+			alert('Failed to download chapters.vtt');
+		}
 	};
 
 	return (
 		<div className="max-w-4xl mx-auto p-4">
 			<div className="space-y-4 mb-4">
+				<button
+					onClick={handleDownloadSubtitle}
+					className="w-full py-2 px-4 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition-colors duration-200"
+				>
+					Download Sample Subtitle VTT
+				</button>
+				<button
+					onClick={handleDownloadChapter}
+					className="w-full py-2 px-4 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition-colors duration-200"
+				>
+					Download Sample Chapter VTT
+				</button>
+
 				<div>
 					<label className="block text-sm font-medium text-gray-700 mb-1">Subtitle File (WebVTT)</label>
 					<input
@@ -88,7 +129,7 @@ export const App: React.FC = () => {
 						src={
 							'https://raw.githubusercontent.com/mdn/learning-area/main/javascript/apis/video-audio/finished/video/sintel-short.mp4'
 						}
-						className="rounded-lg overflow-hidden "
+						className="rounded-lg overflow-hidden"
 					>
 						<Subtitles subtitles={state.subtitles} currentTime={state.currentTime} className="mb-4 text-lg" />
 						<ControlsWrapper className="bg-black/70">
@@ -110,21 +151,18 @@ export const App: React.FC = () => {
 								onPause={controls.pause}
 								onVolumeChange={controls.setVolume}
 								className="bg-black/70 p-3"
-								customIcons={customIcons}
 							>
 								<div className="flex justify-between">
 									<button
 										className=" text-white text-sm px-3 py-1 rounded bg-violet-600 hover:bg-violet-700"
 										onClick={() => controls.seek(0)}
 									>
-										Restart
+										Custom UI
 									</button>
-									<Settings className="text-white" />
 								</div>
 							</Controls>
 						</ControlsWrapper>
 					</VideoPlayer>
-
 					<div>current time(s): {state.currentTime}</div>
 					<div>total duration(s): {state.duration}</div>
 				</div>

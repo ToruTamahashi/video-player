@@ -1,8 +1,8 @@
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 import { ThumbnailPreview } from './ThumbnailPreview';
 import { ChapterMarker } from './ChapterMarker';
-import { ChapterType } from '../types';
-import { formatTimePair } from '../../../utils/time';
+import { ChapterType } from '../../types';
+import { formatTimePair } from '../../utils/time';
 
 type HeightOption = 'sm' | 'md' | 'lg';
 
@@ -22,9 +22,9 @@ interface ProgressBarPropsType {
 const POPUP_PADDING = 8; // Padding for the popup
 
 const heightMap: Record<HeightOption, string> = {
-	sm: 'h-1',
-	md: 'h-2',
-	lg: 'h-3',
+	sm: 'tvp-h-1',
+	md: 'tvp-h-2',
+	lg: 'tvp-h-3',
 };
 
 const ProgressBar: React.FC<ProgressBarPropsType> = ({
@@ -128,41 +128,50 @@ const ProgressBar: React.FC<ProgressBarPropsType> = ({
 	const [previewTimeFormatted] = previewInfo ? formatTimePair(previewInfo.time, duration) : ['0:00'];
 
 	return (
-		<div className="relative group">
+		<div className="tvp-relative tvp-group">
 			{/* Preview popup */}
 			{isHovering && previewInfo && (
-				<div ref={previewRef} className="absolute bottom-4 bg-black rounded p-1 z-20" style={previewStyle}>
+				<div
+					ref={previewRef}
+					className="tvp-absolute tvp-bottom-4 tvp-bg-black tvp-rounded tvp-p-1 tvp-z-20"
+					style={previewStyle}
+				>
 					<ThumbnailPreview
 						videoRef={videoRef}
 						time={previewInfo.time}
-						className={`rounded mb-1 ${thumbnailPreviewClassName}`}
+						className={`tvp-rounded tvp-mb-1 ${thumbnailPreviewClassName}`}
 					/>
-					<div className="text-white text-xs text-center tabular-nums font-mono w-16">{previewTimeFormatted}</div>
+					<div className="tvp-text-white tvp-text-xs tvp-text-center tvp-tabular-nums tvp-font-mono tvp-w-16">
+						{previewTimeFormatted}
+					</div>
 				</div>
 			)}
 
 			{/* Progress bar */}
 			<div
 				ref={progressRef}
-				className={`relative w-full cursor-pointer ${heightMap[height]} ${className}`}
+				className={`tvp-relative tvp-w-full tvp-cursor-pointer ${heightMap[height]} ${className}`}
 				onClick={handleClick}
 				onMouseMove={handleMouseMove}
 				onMouseEnter={handleMouseEnter}
 				onMouseLeave={handleMouseLeave}
 			>
 				{/* Base (gray) */}
-				<div className={`absolute top-0 left-0 w-full h-full`} style={{ backgroundColor: baseColor }} />
+				<div
+					className={`tvp-absolute tvp-top-0 tvp-left-0 tvp-w-full tvp-h-full`}
+					style={{ backgroundColor: baseColor }}
+				/>
 
 				{/* Played portion (red) */}
 				<div
-					className={`absolute top-0 left-0 h-full transition-all duration-100`}
+					className={`tvp-absolute tvp-top-0 tvp-left-0 tvp-h-full tvp-transition-all tvp-duration-100`}
 					style={{ backgroundColor: progressColor, width: `${progressPercent}%` }}
 				/>
 
 				{/* Hover effect (only for unplayed portion) */}
 				{isHovering && previewInfo && (
 					<div
-						className="absolute top-0 h-full bg-white/30 transition-all duration-100"
+						className="tvp-absolute tvp-top-0 tvp-h-full tvp-bg-white/30 tvp-transition-all tvp-duration-100"
 						style={{
 							left: `${progressPercent}%`,
 							width: `${Math.max(previewInfo.position * 100 - progressPercent, 0)}%`,
@@ -171,8 +180,8 @@ const ProgressBar: React.FC<ProgressBarPropsType> = ({
 				)}
 
 				{/* Chapter markers */}
-				<div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-					<div className="relative w-full h-full">
+				<div className="tvp-absolute tvp-top-0 tvp-left-0 tvp-w-full tvp-h-full tvp-pointer-events-none">
+					<div className="tvp-relative tvp-w-full tvp-h-full">
 						{chapters.map((chapter) => (
 							<ChapterMarker key={chapter.startTime} chapter={chapter} duration={duration} />
 						))}

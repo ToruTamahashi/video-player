@@ -1,4 +1,3 @@
-// src/components/VideoPlayer/Controls.tsx
 import React, { useCallback } from 'react';
 import {
 	PlayIcon as DefaultPlayIcon,
@@ -7,9 +6,9 @@ import {
 	VolumeMediumIcon as DefaultVolumeMediumIcon,
 	VolumeLowIcon as DefaultVolumeLowIcon,
 	VolumeXIcon as DefaultVolumeXIcon,
-} from './icons/DefaultIcons';
-import { formatTimePair } from '../../utils/time';
-import { ControlsPropsType } from './types';
+} from '../icons/DefaultIcons';
+import { formatTimePair } from '../utils/time';
+import { ControlsPropsType } from '../types';
 
 export const Controls: React.FC<ControlsPropsType> = ({
 	isPlaying,
@@ -47,23 +46,23 @@ export const Controls: React.FC<ControlsPropsType> = ({
 	const VolumeIcon = getVolumeIcon();
 
 	return (
-		<div className="grid grid-cols-[auto_auto_auto_1fr] items-center gap-4 mt-2">
-			<button className="text-white hover:text-gray-300" onClick={isPlaying ? onPause : onPlay}>
-				{isPlaying ? <PauseIcon className="w-6 h-6" /> : <PlayIcon className="w-6 h-6" />}
+		<div className="tvp-grid tvp-grid-cols-[auto_auto_auto_1fr] tvp-items-center tvp-gap-4 tvp-mt-2">
+			<button className="tvp-text-white hover:tvp-text-gray-300" onClick={isPlaying ? onPause : onPlay}>
+				{isPlaying ? <PauseIcon className="tvp-w-6 tvp-h-6" /> : <PlayIcon className="tvp-w-6 tvp-h-6" />}
 			</button>
 
-			<div className="text-white text-sm tabular-nums font-mono min-w-[80px] text-center">
+			<div className="tvp-text-white tvp-text-sm tvp-tabular-nums tvp-font-mono tvp-min-w-[80px] tvp-text-center">
 				{formatTimePair(currentTime, duration).join(' / ')}
 			</div>
 
-			<div className="flex items-center space-x-2">
-				<button className="text-white hover:text-gray-300" onClick={handleVolumeIconClick}>
-					<VolumeIcon className="w-6 h-6" />
+			<div className="tvp-flex tvp-items-center tvp-space-x-2">
+				<button className="tvp-text-white hover:tvp-text-gray-300" onClick={handleVolumeIconClick}>
+					<VolumeIcon className="tvp-w-6 tvp-h-6" />
 				</button>
-				<div className="relative w-20 h-1">
-					<div className="absolute top-0 left-0 w-full h-full bg-gray-600 rounded-full" />
+				<div className="tvp-relative tvp-w-20 tvp-h-1">
+					<div className="tvp-absolute tvp-top-0 tvp-left-0 tvp-w-full tvp-h-full tvp-bg-gray-600 tvp-rounded-full" />
 					<div
-						className="absolute top-0 left-0 h-full bg-blue-500 rounded-full"
+						className="tvp-absolute tvp-top-0 tvp-left-0 tvp-h-full tvp-bg-blue-500 tvp-rounded-full"
 						style={{ width: `${volume * 100}%` }}
 					/>
 					<input
@@ -73,11 +72,11 @@ export const Controls: React.FC<ControlsPropsType> = ({
 						step="0.01"
 						value={volume}
 						onChange={(e) => onVolumeChange(Number(e.target.value))}
-						className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer
-                [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 
-                [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-white 
-                [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:opacity-100
-                hover:[&::-webkit-slider-thumb]:bg-violet-200"
+						className="tvp-absolute tvp-top-0 tvp-left-0 tvp-w-full tvp-h-full tvp-opacity-0 tvp-cursor-pointer
+                [&::-webkit-slider-thumb]:tvp-appearance-none [&::-webkit-slider-thumb]:tvp-w-3 
+                [&::-webkit-slider-thumb]:tvp-h-3 [&::-webkit-slider-thumb]:tvp-bg-white 
+                [&::-webkit-slider-thumb]:tvp-rounded-full [&::-webkit-slider-thumb]:tvp-opacity-100
+                hover:[&::-webkit-slider-thumb]:tvp-bg-violet-200"
 					/>
 				</div>
 			</div>

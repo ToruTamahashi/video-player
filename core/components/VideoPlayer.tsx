@@ -1,5 +1,5 @@
 import { forwardRef, useImperativeHandle } from 'react';
-import { VideoPlayerPropsType, VideoPlayerRefType } from './types';
+import { VideoPlayerPropsType, VideoPlayerRefType } from '../types';
 
 export const VideoPlayer = forwardRef<VideoPlayerRefType, VideoPlayerPropsType>(
 	({ src, className = '', videoRef, onTimeUpdate, onLoadedMetadata, onPlay, onPause, children }, ref) => {
@@ -43,13 +43,11 @@ export const VideoPlayer = forwardRef<VideoPlayerRefType, VideoPlayerPropsType>(
 			onPause?.();
 		};
 
-		
-
 		return (
-			<div className={`relative w-full aspect-video bg-black ${className}`}>
+			<div className={`tvp-relative tvp-w-full tvp-aspect-video tvp-bg-black ${className}`}>
 				<video
 					ref={videoRef}
-					className="w-full h-full"
+					className="tvp-w-full tvp-h-full"
 					onTimeUpdate={handleTimeUpdate}
 					onLoadedMetadata={handleLoadedMetadata}
 					onPlay={handlePlay}

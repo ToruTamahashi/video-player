@@ -93,8 +93,14 @@ export const ThumbnailPreview: React.FC<ThumbnailPreviewPropsType> = ({ videoRef
 	}, [time, getThumbnail]);
 
 	if (!thumbnail) {
-		return <div className={`w-40 h-[90px] bg-gray-800 ${className}`} />;
+		return <div className={`tvp-w-40 tvp-h-[90px] tvp-bg-gray-800 ${className}`} />;
 	}
 
-	return <img src={thumbnail} alt={`Preview at ${time}s`} className={`w-40 h-[90px] object-cover ${className}`} />;
+	return (
+		<img
+			src={thumbnail}
+			alt={`Preview at ${time}s`}
+			className={`tvp-w-40 tvp-h-[90px] tvp-object-cover ${className}`}
+		/>
+	);
 };

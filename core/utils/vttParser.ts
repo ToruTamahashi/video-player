@@ -1,4 +1,4 @@
-import { WebVTTType } from '../components/VideoPlayer/types';
+import { WebVTTType } from '../types';
 
 export const parseVTT = (vttContent: string): WebVTTType[] => {
 	const lines = vttContent.trim().split('\n');

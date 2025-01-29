@@ -26,7 +26,8 @@
 		"dev": "vite",
 		"build": "vite build && tsc",
 		"lint": "eslint .",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"link": "npm link"
 	},
 	"peerDependencies": {
 		"react": ">=18.0.0",
