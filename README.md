@@ -28,8 +28,15 @@ pnpm add @torutamahashi/video-player
 ```
 
 ### Add styling to your application
+1. React without tailwindcss
+Add the following code at the beginning of the global style file.
 
-1. tailwind css application
+```typescript
+// index.css 
+@import '@torutamahashi/video-player/index.css';
+```
+
+2. React + tailwindcss
 
 ```typescript
 // index.css
@@ -39,7 +46,7 @@ pnpm add @torutamahashi/video-player
 @tailwind utilities;
 ```
 
-2. Remix with tailwind css
+3. Remix with tailwind css
 
 ```typescript
 // root.tsx
