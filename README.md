@@ -36,7 +36,7 @@ Add the following code at the beginning of the global style file.
 @import '@torutamahashi/video-player/index.css';
 ```
 
-1. React + tailwindcss
+2. React + tailwindcss
    
 You need to install tailwindcss in advance
 ```typescript
@@ -47,7 +47,7 @@ You need to install tailwindcss in advance
 @tailwind utilities;
 ```
 
-1. Remix with tailwind css
+3. Remix with tailwind css
 
 ```typescript
 // root.tsx
