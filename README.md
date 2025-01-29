@@ -37,7 +37,7 @@ Add the following code at the beginning of the global style file.
 ```
 
 2. React + tailwindcss
-
+You need to install tailwindcss in advance
 ```typescript
 // index.css
 @import '@torutamahashi/video-player/index.css';
