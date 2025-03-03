@@ -16,6 +16,7 @@ interface ProgressBarPropsType {
 	height?: HeightOption;
 	baseColor?: string;
 	progressColor?: string;
+	rounded?: boolean;
 	thumbnailPreviewClassName?: string;
 }
 
@@ -37,6 +38,7 @@ const ProgressBar: React.FC<ProgressBarPropsType> = ({
 	height = 'sm',
 	baseColor = '#4B5563',
 	progressColor = '#DC2626',
+	rounded = false,
 	thumbnailPreviewClassName = '',
 }) => {
 	const progressRef = useRef<HTMLDivElement>(null);
@@ -158,13 +160,15 @@ const ProgressBar: React.FC<ProgressBarPropsType> = ({
 			>
 				{/* Base (gray) */}
 				<div
-					className={`tvp-absolute tvp-top-0 tvp-left-0 tvp-w-full tvp-h-full`}
+					className={`tvp-absolute tvp-top-0 tvp-left-0 tvp-w-full tvp-h-full ${rounded ? 'tvp-rounded-full' : ''}`}
 					style={{ backgroundColor: baseColor }}
 				/>
 
 				{/* Played portion (red) */}
 				<div
-					className={`tvp-absolute tvp-top-0 tvp-left-0 tvp-h-full tvp-transition-all tvp-duration-100`}
+					className={`tvp-absolute tvp-top-0 tvp-left-0 tvp-h-full tvp-transition-all tvp-duration-100 ${
+						rounded ? 'tvp-rounded-full' : ''
+					}`}
 					style={{ backgroundColor: progressColor, width: `${progressPercent}%` }}
 				/>
 
