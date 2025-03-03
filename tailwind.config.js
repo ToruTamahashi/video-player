@@ -8,5 +8,7 @@ export default {
 	},
 	plugins: [],
 	prefix: 'tvp-',
-	
+	corePlugins: {
+		preflight: false,
+	},
 };
